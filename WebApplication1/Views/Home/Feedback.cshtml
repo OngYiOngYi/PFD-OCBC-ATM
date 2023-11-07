@@ -34,12 +34,16 @@
 	<body>
 		<div class="rating">
 			<input type="hidden" id="rating-value" name="rating" value="0" />
-			<i class="fa-regular fa-star" data-index="1"></i>
-			<i class="fa-regular fa-star" data-index="2"></i>
-			<i class="fa-regular fa-star" data-index="3"></i>
-			<i class="fa-regular fa-star" data-index="4"></i>
-			<i class="fa-regular fa-star" data-index="5"></i>
+			<i class="fa-solid fa-star" data-index="1"></i>
+			<i class="fa-solid fa-star" data-index="2"></i>
+			<i class="fa-solid fa-star" data-index="3"></i>
+			<i class="fa-solid fa-star" data-index="4"></i>
+			<i class="fa-solid fa-star" data-index="5"></i>
 		</div>
+
+		@*<div>
+			<button id="skip">Skip</button>
+		</div>*@
 	</body>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -65,6 +69,10 @@
 
 				if (currentRating < 4) {
 					window.location.href = "FeedbackReview"; // Redirect to feedbackreview page
+				}
+				else if (currentRating >4)
+				{
+					window.location.href = 'Index';
 				}
 			});
 

@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
 		{
 			new User { Username = "user1", Password = "password1", Name = "Itsuki Nakano" },
 			new User { Username = "user2", Password = "password2" , Name = "Nino Nakano"},
-			new User { Username = "user3", Password = "password3" , Name = "Miku Nakano"}
+			new User { Username = "user3", Password = "1234567890" , Name = "Miku Nakano"}
 		};
 
 		public HomeController()
