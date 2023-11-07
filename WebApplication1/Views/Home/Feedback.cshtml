@@ -1,0 +1,81 @@
+﻿@{
+	ViewData["Title"] = "Feedback";
+}
+
+<!DOCTYPE html>
+<html>
+	<header>
+		<title>Feedback</title>
+		<style>
+			.rating {
+				padding: 20%;
+				justify-items: center;
+				justify-content: center;
+				text-align: center;
+				color: #ddd; /* Default color for unfilled stars */
+			}
+
+			.rating i {
+				font-size: 500%;
+				cursor: pointer;
+			}
+
+			.rating i.filled {
+				color: #FFD700; /* Color for filled stars */
+			}
+
+			.rating i.filled {
+				color: #FFD700; /* Color for filled stars */
+			}
+	</style>
+
+	</header>
+
+	<body>
+		<div class="rating">
+			<input type="hidden" id="rating-value" name="rating" value="0" />
+			<i class="fa-regular fa-star" data-index="1"></i>
+			<i class="fa-regular fa-star" data-index="2"></i>
+			<i class="fa-regular fa-star" data-index="3"></i>
+			<i class="fa-regular fa-star" data-index="4"></i>
+			<i class="fa-regular fa-star" data-index="5"></i>
+		</div>
+	</body>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			let currentRating = 0;
+
+			// Change color on hover and fill previous stars
+			$('.rating i').hover(function () {
+				let index = $(this).data('index');
+
+				$('.rating i').removeClass('filled'); // Reset all stars
+
+				for (let i = 1; i <= index; i++) {
+					$('.rating i[data-index="' + i + '"]').addClass('filled');
+				}
+			});
+
+			$('.rating i').click(function () {
+				let index = $(this).data('index');
+				currentRating = index;
+				$('#rating-value').val(index); // Set the selected value in the hidden input field
+
+				if (currentRating < 4) {
+					window.location.href = "FeedbackReview"; // Redirect to feedbackreview page
+				}
+			});
+
+			// On mouseout, revert stars to the current selected rating
+			$('.rating').mouseout(function () {
+				$('.rating i').removeClass('filled');
+
+				for (let i = 1; i <= currentRating; i++) {
+					$('.rating i[data-index="' + i + '"]').addClass('filled');
+				}
+			});
+		});
+	</script>
+</html>

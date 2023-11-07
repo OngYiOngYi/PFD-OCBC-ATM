@@ -1,0 +1,91 @@
+﻿@{
+	ViewData["Title"] = "Deposit";
+}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Deposit
+		</title>
+		<style>
+		.input-group {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.input-group input {
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			width: 200px;
+		}
+
+		.input-group button {
+			padding: 10px 20px;
+			background-color: #007bff;
+			color: white;
+			border: none;
+			border-radius: 5px;
+		}
+
+		.success-message {
+			color: green;
+			font-family: 'Comfortaa', sans-serif;
+		}
+
+		.error-message {
+			color: red;
+			font-family: 'Comfortaa', sans-serif;
+		}
+		.Deposit{
+			font-family: 'Comfortaa', sans-serif;
+		}
+		.DepositText{
+			font-family: 'Comfortaa', sans-serif;
+		}
+		</style>
+		<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<h1 class="Deposit">Deposit</h1>
+		<div class="DepositText">
+			Please insert amount into ATM...
+		</div>
+
+		<div>
+			<div class="input-group">
+				<form action="SubmitAmount" method="post">
+					<input type="number" name="amount" placeholder="Enter amount" required>
+					<button type="submit">Submit</button>
+				</form>
+			</div>
+
+			<div class="message" id="message">
+				@if (TempData["SuccessMsg"] != null)
+				{
+					<div class="success-message">
+						@TempData["SuccessMsg"]
+					</div>
+				}
+
+				@if (TempData["ErrorMsg"] != null)
+				{
+					<div class="error-message">
+						@TempData["ErrorMsg"]
+					</div>
+				}
+			</div>
+		</div>
+
+		<script>
+			// JavaScript to show the message div if there's a message
+			window.onload = function () {
+				var messageDiv = document.getElementById("message");
+				if (messageDiv.innerHTML.trim() !== '') {
+					messageDiv.style.display = "block"; // Show the message if it's not empty
+				}
+			};
+		</script>
+	</body>
+</html>
