@@ -11,9 +11,9 @@ namespace WebApplication1.Controllers
 
 		private List<User> users = new List<User>
 		{
-			new User { Username = "user1", Password = "password1", Name = "Itsuki Nakano" },
-			new User { Username = "user2", Password = "password2" , Name = "Nino Nakano"},
-			new User { Username = "user3", Password = "1234567890" , Name = "Miku Nakano"}
+			new User { Username = "user1", Password = "123456", Name = "Itsuki Nakano" },
+			new User { Username = "user2", Password = "654321" , Name = "Nino Nakano"},
+			new User { Username = "user3", Password = "102938" , Name = "Miku Nakano"}
 		};
 
 		public HomeController()
@@ -30,7 +30,7 @@ namespace WebApplication1.Controllers
 		[HttpPost]
 		public IActionResult Login(string username, string password)
 		{
-			User user = users.Find(u => u.Username == username && u.Password == password);
+			User user = users.Find(u => u.Password == password);
 
 			if (user != null)
 			{

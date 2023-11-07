@@ -12,6 +12,13 @@
 			padding: 20px;
 			border-radius: 5px;
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			font-family: 'Comfortaa', sans-serif;
+			width: 40%;
+			text-align: center;
+			display:flex;
+			justify-content:center;
+			align-items:center;
+			margin-left:30%;
 		}
 
 		.login-form {
@@ -50,26 +57,30 @@
 			font-style: italic;
 			font-size: 14px;
 		}
+		.spacerers{
+			margin-top: 10%;
+		}
 	</style>
 </header>
 
 <body>
-	<div class="container mt-5">
-		<h2>Login</h2>
-		@if (ViewBag.ErrorMessage != null)
-		{
-			<p class="text-danger">@ViewBag.ErrorMessage</p>
-		}
-		<form asp-action="Login" asp-controller="Home" method="post">
-			<div class="form-group">
-				<label asp-for="Username"></label>
-				<input asp-for="Username" class="form-control" required>
-			</div>
-			<div class="form-group">
-				<label asp-for="Password"></label>
-				<input asp-for="Password" type="password" class="form-control" required>
-			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
-		</form>
+	<div class="login-container">
+		<div class="container mt-5">
+			<h2>Login</h2>
+			@if (ViewBag.ErrorMessage != null)
+			{
+				<p class="text-danger">@ViewBag.ErrorMessage</p>
+			}
+			<span> Please insert your <span style="color:red">CARD</span> and enter your pin<span>
+			<br />
+			<form asp-action="Login" asp-controller="Home" class="spacerers" method="post">
+				<div class="form-group">
+					<label asp-for="Password">Enter Your Pin</label>
+					<input asp-for="Password" type="password" class="form-control" required>
+				</div>
+				<button type="submit" class="btn btn-primary">Login</button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
