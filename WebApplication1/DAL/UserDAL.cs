@@ -3,6 +3,7 @@ using System.Configuration;
 using WebApplication1.Models;
 
 using System.Data.SqlClient;
+using System.Runtime.CompilerServices;
 
 namespace WebApplication1.DAL
 {
@@ -24,6 +25,31 @@ namespace WebApplication1.DAL
 			//Instantiate a SqlConnection object with the
 			//Connection String read.
 			conn = new SqlConnection(strConn);
+		}
+
+		public List<User> GetUsers()
+		{
+			SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = @"SELECT * FROM Account";
+			conn.Open();
+			SqlDataReader reader = cmd.ExecuteReader();
+			List<User> userList = new List<User>();
+			while (reader.Read())
+			{
+				userList.Add(
+				new User
+				{
+					AccountID = reader.GetInt32(0),
+					Name = reader.GetString(1),
+					AccountNumber = reader.GetString(2),
+					Password = reader.GetString(3),
+					Amount = reader.GetDouble(4)
+				}
+				) ; 
+			}
+			reader.Close();
+			conn.Close();
+			return userList;
 		}
 	}
 }

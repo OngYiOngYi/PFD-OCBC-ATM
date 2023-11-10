@@ -11,9 +11,7 @@ namespace WebApplication1.Controllers
 
 		private List<User> users = new List<User>
 		{
-			new User { Username = "user1", Password = "123456", Name = "Itsuki Nakano" },
-			new User { Username = "user2", Password = "654321" , Name = "Nino Nakano"},
-			new User { Username = "user3", Password = "102938" , Name = "Miku Nakano"}
+			new User { AccountID = 100, Name="Itsuki Nakano", AccountNumber="12345678", Password="123456",Amount=10000 },
 		};
 
 		public HomeController()
@@ -48,7 +46,7 @@ namespace WebApplication1.Controllers
         public IActionResult EyeLogin()
         {
             User user1 = new User();
-            user1.Username = "7891234560";
+            user1.AccountNumber = "7891234560";
             user1.Password = "159";
             user1.Name = "Isaac Uesugi";
             TempData["LoggedInUser"] = user1.Name;
