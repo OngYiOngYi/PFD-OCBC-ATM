@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 using WebApplication1.Models;
+using WebApplication1.DAL;
 
 namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+
+        private UserDAL userContext = new UserDAL();
 
 		private List<User> users = new List<User>
 		{
@@ -28,19 +31,31 @@ namespace WebApplication1.Controllers
 		[HttpPost]
 		public IActionResult Login(string username, string password)
 		{
-			User user = users.Find(u => u.Password == password);
+			//User user = users.Find(u => u.Password == password);
 
-			if (user != null)
-			{
-				// Simulating authentication using TempData, can be replaced with authentication mechanisms like Identity in real applications
-				TempData["LoggedInUser"] = user.Name;
-				return RedirectToAction("Home", "Home"); // Redirect to the home page
-			}
-			else
-			{
-				ViewBag.ErrorMessage = "Invalid username or password. Please try again.";
-				return RedirectToAction("Index"); // Return the view with an error message
-			}
+			//if (user != null)
+			//{
+			//	// Simulating authentication using TempData, can be replaced with authentication mechanisms like Identity in real applications
+			//	TempData["LoggedInUser"] = user.Name;
+			//	return RedirectToAction("Home", "Home"); // Redirect to the home page
+			//}
+			//else
+			//{
+			//	ViewBag.ErrorMessage = "Invalid username or password. Please try again.";
+			//	return RedirectToAction("Index"); // Return the view with an error message
+			//}
+
+            List<User> userList = userContext.GetUsers();
+
+            foreach (var user in userList)
+            {
+                if (user.Password == password)
+                {
+                    TempData["LoggedInUSer"] = user.Name;
+                    return RedirectToAction("Home", "Home");
+                }
+            }
+            return RedirectToAction("Index");
 		}
 
         public IActionResult EyeLogin()

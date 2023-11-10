@@ -43,7 +43,7 @@ namespace WebApplication1.DAL
 					Name = reader.GetString(1),
 					AccountNumber = reader.GetString(2),
 					Password = reader.GetString(3),
-					Amount = reader.GetDouble(4)
+					Amount = reader.GetDecimal(4),
 				}
 				) ; 
 			}
