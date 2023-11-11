@@ -52,6 +52,7 @@ namespace WebApplication1.Controllers
                 if (user.Password == password)
                 {
                     TempData["LoggedInUSer"] = user.Name;
+                    HttpContext.Session.SetInt32("UserID", user.AccountID);
                     return RedirectToAction("Home", "Home");
                 }
             }
@@ -93,7 +94,8 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult SubmitAmount(int amount) 
         {
-            if (amount > 0)
+		
+			if (amount > 0)
             {
                 TempData["SuccessMsg"] = "Successful Deposit";
 
@@ -109,14 +111,25 @@ namespace WebApplication1.Controllers
 
         public IActionResult WithdrawAmount(int amount)
         {
-			if (amount > 0)
-			{
-				TempData["WSuccessMsg"] = "Successful withdraw of $" + amount;
-			}
 
-			else
+			List<User> userList = userContext.GetUsers();
+
+			foreach (var user in userList)
 			{
-				TempData["WErrorMsg"] = "Please enter valid amount";
+				if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
+				{
+					if (user.Amount - amount < 0)
+                    {
+                        TempData["ErrorMsg"] = "There is not enough amount to withdraw";
+                    }
+
+                    else if (user.Amount - amount > 0)
+                    {
+                        // Call minus amount function
+                        TempData["SuccessMsg"] = "Successful withdraw";
+                    }
+
+				}
 			}
             return RedirectToAction("Feedback");
 		}
