@@ -72,14 +72,28 @@
             Please choose an amount to withdraw...
         </div>
 
-        <div class="input-group">
+        @*<div class="input-group">
             <form id="withdrawForm" action="WithdrawAmount" method="post">
                 <button type="button" onclick="withdraw()">$10</button>
                 <button type="button" onclick="withdraw()">$20</button>
                 <button type="button" onclick="withdraw()">$50</button>
                 <button type="button" onclick="withdraw()">$100</button>
             </form>
+        </div>*@
+
+        <div class="input-group">
+            <form id="withdrawForm" action="WithdrawAmount" method="post">
+                <input type="hidden" id="withdrawAmount" name="amount" value="" />
+
+                <button type="button" onclick="withdraw(10)">$10</button>
+                <button type="button" onclick="withdraw(20)">$20</button>
+                <button type="button" onclick="withdraw(50)">$50</button>
+                <button type="button" onclick="withdraw(100)">$100</button>
+
+                <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
+            </form>
         </div>
+
 
         <div class="message" id="withdrawmessage">
             @if (TempData["WSuccessMsg"] != null)
@@ -133,15 +147,20 @@
 
         window.addEventListener('beforeunload', function (e) {
             // Clear TempData when leaving the page
-        @if (TempData["WSuccessMsg"] != null)
-        {
-            TempData["WSuccessMsg"] = null;
+            @if (TempData["WSuccessMsg"] != null)
+            {
+                TempData["WSuccessMsg"] = null;
+            }
+            @if (TempData["WErrorMsg"] != null)
+            {
+                TempData["WErrorMsg"] = null;
+            }
+        });
+
+        function withdraw(amount) {
+            document.getElementById('withdrawAmount').value = amount;
+            document.getElementById('withdrawForm').submit();
         }
-        @if (TempData["WErrorMsg"] != null)
-        {
-            TempData["WErrorMsg"] = null;
-        }
-                });
     </script>
 </body>
 </html>

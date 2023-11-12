@@ -91,22 +91,34 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult SubmitAmount(int amount) 
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult DepositAmount(int amount) 
         {
-		
-			if (amount > 0)
+
+            List<User> userList = userContext.GetUsers();
+
+            foreach (var user in userList)
             {
-                TempData["SuccessMsg"] = "Successful Deposit";
+                if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
+                {
+                    if (amount <= 0)
+                    {
+                        TempData["ErrorMsg"] = "You cannot deposit a negative amount";
+                    }
 
+                    else if (amount < 0)
+                    {
+                        decimal amt = user.Amount;
+                        decimal newamt = amt + amount;
+                        userContext.Deposit(user, newamt);
+                        TempData["SuccessMsg"] = "Successful Deposit";
+                        return RedirectToAction("Feedback");
+                    }
+
+                }
             }
-
-            else
-            {
-                TempData["ErrorMsg"] = "Please enter valid amount";
-            }
-
-            return RedirectToAction("Deposit");
+            return View();
         }
 
         public IActionResult WithdrawAmount(int amount)
@@ -125,13 +137,16 @@ namespace WebApplication1.Controllers
 
                     else if (user.Amount - amount > 0)
                     {
-                        // Call minus amount function
+                        decimal amt = user.Amount;
+                        decimal newamt = amt - amount;
+                        userContext.Withdraw(user, newamt);
                         TempData["SuccessMsg"] = "Successful withdraw";
-                    }
+						return RedirectToAction("Feedback");
+					}
 
 				}
 			}
-            return RedirectToAction("Feedback");
+            return View();
 		}
 
         public IActionResult Feedback()
