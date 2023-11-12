@@ -12,7 +12,7 @@
             flex-direction:column;
             align-items: center;
             justify-content: center;
-            height: 50vh;
+            height: 55vh;
             margin: 0;
         }
 
@@ -32,7 +32,7 @@
             text-align: center;
         }
 
-        button[type="submit"] {
+        button[type="button"] {
             padding: 30px 60px; /* Increased padding */
             margin: 10px; /* Increased margin */
             border: 2px solid #3498db;
@@ -44,7 +44,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        button[type="submit"]:hover {
+        button[type="button"]:hover {
             background-color: #2980b9;
         }
 
@@ -53,8 +53,14 @@
         .message {
             font-family: 'Comfortaa', sans-serif;
         }
+
+        .lottie-container {
+            display: none;
+        }
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
 </head>
 <body>
     <div class="mains">
@@ -67,11 +73,11 @@
         </div>
 
         <div class="input-group">
-            <form action="WithdrawAmount" method="post">
-                <button type="submit" name="amount" value="10">$10</button>
-                <button type="submit" name="amount" value="20">$20</button>
-                <button type="submit" name="amount" value="50">$50</button>
-                <button type="submit" name="amount" value="100">$100</button>
+            <form id="withdrawForm" action="WithdrawAmount" method="post">
+                <button type="button" onclick="withdraw()">$10</button>
+                <button type="button" onclick="withdraw()">$20</button>
+                <button type="button" onclick="withdraw()">$50</button>
+                <button type="button" onclick="withdraw()">$100</button>
             </form>
         </div>
 
@@ -91,28 +97,53 @@
             }
         </div>
     </div>
+    <script>
+        function withdraw() {
+            var withdrawForm = document.getElementById("withdrawForm");
+            var messageDiv = document.getElementById("withdrawmessage");
+
+            // Display "Currently Withdrawing..." message with animated dots
+            var dots = 0;
+            var dotAnimation = setInterval(function () {
+                messageDiv.innerHTML = "Currently Withdrawing" + ".".repeat(dots);
+                dots = (dots + 1) % 4; // 4 is the number of dots, adjust as needed
+            }, 200); // Adjust the interval as needed
+
+            // Delay for 3 seconds
+            setTimeout(function () {
+                clearInterval(dotAnimation); // Stop the dot animation
+                // Display "Successful Withdrawal" message
+                messageDiv.innerHTML = "Successful Withdrawal";
+
+                // Delay for another 3 seconds
+                setTimeout(function () {
+                    // Redirect to the review page
+                    window.location.href = "/Home/Feedback";
+                }, 3000);
+            }, 3000);
+        }
+
+        // JavaScript to show the message div if there's a message
+        window.onload = function () {
+            var messageDiv = document.getElementById("withdrawmessage");
+            if (messageDiv.innerHTML.trim() !== '') {
+                messageDiv.style.display = "block"; // Show the message if it's not empty
+            }
+        };
+
+        window.addEventListener('beforeunload', function (e) {
+            // Clear TempData when leaving the page
+        @if (TempData["WSuccessMsg"] != null)
+        {
+            TempData["WSuccessMsg"] = null;
+        }
+        @if (TempData["WErrorMsg"] != null)
+        {
+            TempData["WErrorMsg"] = null;
+        }
+                });
+    </script>
 </body>
 </html>
 
 
-<script>
-	// JavaScript to show the message div if there's a message
-	window.onload = function () {
-		var messageDiv = document.getElementById("withdrawmessage");
-		if (messageDiv.innerHTML.trim() !== '') {
-			messageDiv.style.display = "block"; // Show the message if it's not empty
-		}
-	};
-
-	window.addEventListener('beforeunload', function (e) {
-		// Clear TempData when leaving the page
-	@if (TempData["WSuccessMsg"] != null)
-	{
-		TempData["WSuccessMsg"] = null;
-	}
-	@if (TempData["WErrorMsg"] != null)
-	{
-		TempData["WErrorMsg"] = null;
-	}
-				});
-</script>
