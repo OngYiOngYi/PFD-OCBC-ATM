@@ -112,7 +112,7 @@
         </div>
     </div>
     <script>
-        function withdraw() {
+        function withdraw(amount) {
             var withdrawForm = document.getElementById("withdrawForm");
             var messageDiv = document.getElementById("withdrawmessage");
 
@@ -131,8 +131,10 @@
 
                 // Delay for another 3 seconds
                 setTimeout(function () {
-                    // Redirect to the review page
-                    window.location.href = "/Home/Feedback";
+                    // Set the withdrawal amount
+                    document.getElementById('withdrawAmount').value = amount;
+                    // Submit the withdrawal form
+                    withdrawForm.submit();
                 }, 3000);
             }, 3000);
         }
@@ -147,22 +149,16 @@
 
         window.addEventListener('beforeunload', function (e) {
             // Clear TempData when leaving the page
-            @if (TempData["WSuccessMsg"] != null)
-            {
-                TempData["WSuccessMsg"] = null;
-            }
-            @if (TempData["WErrorMsg"] != null)
-            {
-                TempData["WErrorMsg"] = null;
-            }
-        });
-
-        function withdraw(amount) {
-            document.getElementById('withdrawAmount').value = amount;
-            document.getElementById('withdrawForm').submit();
+        @if (TempData["WSuccessMsg"] != null)
+        {
+            TempData["WSuccessMsg"] = null;
         }
+        @if (TempData["WErrorMsg"] != null)
+        {
+            TempData["WErrorMsg"] = null;
+        }
+            });
     </script>
 </body>
 </html>
-
 
