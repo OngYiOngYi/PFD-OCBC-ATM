@@ -9,6 +9,14 @@
 			Deposit
 		</title>
 		<style>
+		.mains {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 50vh;
+			margin: 0;
+		}
 		.input-group {
 			text-align: center;
 			margin-top: 20px;
@@ -48,33 +56,35 @@
 		<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
 	</head>
 	<body>
-		<h1 class="Deposit">Deposit</h1>
-		<div class="DepositText">
-			Please insert amount into ATM...
-		</div>
-
-		<div>
-			<div class="input-group">
-				<form action="SubmitAmount" method="post">
-					<input type="number" name="amount" placeholder="Enter amount" required>
-					<button type="submit">Submit</button>
-				</form>
+		<div class="mains">
+			<h1 class="Deposit">Deposit</h1>
+			<div class="DepositText">
+				Please insert amount into ATM...
 			</div>
 
-			<div class="message" id="message">
-				@if (TempData["SuccessMsg"] != null)
-				{
-					<div class="success-message">
-						@TempData["SuccessMsg"]
-					</div>
-				}
+			<div>
+				<div class="input-group">
+					<form action="SubmitAmount" method="post">
+						<input type="number" name="amount" placeholder="Enter amount" required>
+						<button type="submit">Submit</button>
+					</form>
+				</div>
 
-				@if (TempData["ErrorMsg"] != null)
-				{
-					<div class="error-message">
-						@TempData["ErrorMsg"]
-					</div>
-				}
+				<div class="message" id="message">
+					@if (TempData["SuccessMsg"] != null)
+					{
+						<div class="success-message">
+							@TempData["SuccessMsg"]
+						</div>
+					}
+
+					@if (TempData["ErrorMsg"] != null)
+					{
+						<div class="error-message">
+							@TempData["ErrorMsg"]
+						</div>
+					}
+				</div>
 			</div>
 		</div>
 
