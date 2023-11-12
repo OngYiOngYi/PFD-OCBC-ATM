@@ -1,100 +1,118 @@
 ﻿@{
-	ViewData["Title"] = "Withdraw";
+    ViewData["Title"] = "Withdraw";
 }
 
 <!DOCTYPE html>
 <html>
-	<header>
-		<Title>Withdraw</Title>
-		<style>
-			.input-group form {
-				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				grid-gap: 10px; /* Adjust the gap as needed */
-			}
+<head>
+    <title>Withdraw</title>
+    <style>
+        .mains {
+            display: flex;
+            flex-direction:column;
+            align-items: center;
+            justify-content: center;
+            height: 50vh;
+            margin: 0;
+        }
 
-			button[type="submit"] {
-				padding: 10px 20px;
-				border: 2px solid #3498db;
-				background-color: #3498db;
-				color: #fff;
-				font-size: 16px;
-				border-radius: 5px;
-				cursor: pointer;
-				transition: background-color 0.3s, color 0.3s;
-			}
+        header {
+            text-align: center;
+        }
+        .input-group{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .input-group form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px; /* Adjust the gap as needed */
+            text-align: center;
+        }
 
-			button[type="submit"]:hover {
-				background-color: #2980b9;
-			}
+        button[type="submit"] {
+            padding: 30px 60px; /* Increased padding */
+            margin: 10px; /* Increased margin */
+            border: 2px solid #3498db;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-			.withdraw{
-				font-family: 'Comfortaa', sans-serif;
-			}
-			.withdrawtext{
-				font-family: 'Comfortaa', sans-serif;
-			}
-			.message{
-				font-family: 'Comfortaa', sans-serif;
-			}
-		</style>
-		<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
-	</header>
-	<body>
-		<h1 class="withdraw">Withdraw</h1>
-		<div class="withdrawtext">
-			Please choose an amount to withdraw...
-		</div>
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
 
-	<div class="input-group">
-		<form action="WithdrawAmount" method="post">
-			<button type="submit" name="amount" value="10">$10</button>
-			<button type="submit" name="amount" value="20">$20</button>
-			<button type="submit" name="amount" value="50">$50</button>
-			<button type="submit" name="amount" value="100">$100</button>
-		</form>
-	</div>
+        .withdraw,
+        .withdrawtext,
+        .message {
+            font-family: 'Comfortaa', sans-serif;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mains">
+        <header>
+            <h1 class="withdraw">Withdraw</h1>
+        </header>
 
+        <div class="withdrawtext">
+            Please choose an amount to withdraw...
+        </div>
 
-		<div class="message" id="withdrawmessage">
-			@if (TempData["WSuccessMsg"] != null)
-			{
-				<div class="success-message">
-					@TempData["WSuccessMsg"]
-				</div>
-			}
+        <div class="input-group">
+            <form action="WithdrawAmount" method="post">
+                <button type="submit" name="amount" value="10">$10</button>
+                <button type="submit" name="amount" value="20">$20</button>
+                <button type="submit" name="amount" value="50">$50</button>
+                <button type="submit" name="amount" value="100">$100</button>
+            </form>
+        </div>
 
-			@if (TempData["WErrorMsg"] != null)
-			{
-				<div class="error-message">
-					@TempData["WErrorMsg"]
-				</div>
-			}
-		</div>
+        <div class="message" id="withdrawmessage">
+            @if (TempData["WSuccessMsg"] != null)
+            {
+                <div class="success-message">
+                    @TempData["WSuccessMsg"]
+                </div>
+            }
 
-	<script>
-		// JavaScript to show the message div if there's a message
-		window.onload = function () {
-			var messageDiv = document.getElementById("withdrawmessage");
-			if (messageDiv.innerHTML.trim() !== '') {
-				messageDiv.style.display = "block"; // Show the message if it's not empty
-			}
-		};
-
-		window.addEventListener('beforeunload', function (e) {
-			// Clear TempData when leaving the page
-		@if (TempData["WSuccessMsg"] != null)
-		{
-			TempData["WSuccessMsg"] = null;
-		}
-		@if (TempData["WErrorMsg"] != null)
-		{
-			TempData["WErrorMsg"] = null;
-		}
-			});
-	</script>
-
-
-	</body>
-
+            @if (TempData["WErrorMsg"] != null)
+            {
+                <div class="error-message">
+                    @TempData["WErrorMsg"]
+                </div>
+            }
+        </div>
+    </div>
+</body>
 </html>
+
+
+<script>
+	// JavaScript to show the message div if there's a message
+	window.onload = function () {
+		var messageDiv = document.getElementById("withdrawmessage");
+		if (messageDiv.innerHTML.trim() !== '') {
+			messageDiv.style.display = "block"; // Show the message if it's not empty
+		}
+	};
+
+	window.addEventListener('beforeunload', function (e) {
+		// Clear TempData when leaving the page
+	@if (TempData["WSuccessMsg"] != null)
+	{
+		TempData["WSuccessMsg"] = null;
+	}
+	@if (TempData["WErrorMsg"] != null)
+	{
+		TempData["WErrorMsg"] = null;
+	}
+				});
+</script>

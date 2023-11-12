@@ -63,7 +63,7 @@ namespace WebApplication1.Controllers
         {
             User user1 = new User();
             user1.AccountNumber = "7891234560";
-            user1.Password = "159";
+            user1.Password = "159521";
             user1.Name = "Isaac Uesugi";
             TempData["LoggedInUser"] = user1.Name;
             return View();
