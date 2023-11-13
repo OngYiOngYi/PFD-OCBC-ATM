@@ -1,4 +1,7 @@
-﻿@{
+﻿
+@model WebApplication1.Models.User
+
+@{
 	ViewData["Title"] = "Deposit";
 }
 
@@ -64,44 +67,33 @@
 
 			<div>
 			<div class="input-group">
-				<form asp-controller="HomeController" asp-action="DepositAmount" method="post">
-					@Html.AntiForgeryToken()
-					<input type="number" name="amount" placeholder="Enter amount" required>
+				<form asp-controller="Home" asp-action="DepositAmount" method="post" onsubmit="return submitForm()">
+					<input asp-for="Amount" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required>
 					<button type="submit">Submit</button>
 				</form>
-			</div>
-
-				<div class="message" id="message">
-					@if (TempData["SuccessMsg"] != null)
-					{
-						<div class="success-message">
-							@TempData["SuccessMsg"]
-						</div>
-					}
-
-					@if (TempData["ErrorMsg"] != null)
-					{
-						<div class="error-message">
-							@TempData["ErrorMsg"]
-						</div>
-					}
-				</div>
 			</div>
 		</div>
 
 		<script>
-			// JavaScript to show the message div if there's a message
-			window.onload = function () {
-				var messageDiv = document.getElementById("message");
-				if (messageDiv.innerHTML.trim() !== '') {
-					messageDiv.style.display = "block"; // Show the message if it's not empty
-				}
-			};
+			function submitForm() {
+				var amount = document.getElementsByName("Amount")[0].value;
 
-			// Redirect after 7 seconds
-			setTimeout(function () {
-				window.location.href = 'Index'; // Replace 'index.html' with the actual URL of your index page
-			}, 7000); // 7 seconds = 7000 milliseconds
+				// Validate the amount
+				if (amount <= 0) {
+					alert("You cannot deposit a non-positive amount");
+					return false; // Returning false prevents the form from submitting
+				}
+
+				// If the amount is valid, you can proceed with the form submission
+				// Here, I'm assuming your form has the ID "depositForm"
+				document.getElementById("depositForm").submit();
+
+				// Optionally, you can return false to prevent the default form submission behavior
+				return false;
+			}
+
+
+
 
 
 

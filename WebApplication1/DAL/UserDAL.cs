@@ -86,7 +86,7 @@ namespace WebApplication1.DAL
 			}
 		}
 
-		public int Deposit(User user, decimal amount)
+		public int Deposit(User user)
 		{
 			SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = @"Update Account SET Amount=@amount
@@ -94,8 +94,11 @@ namespace WebApplication1.DAL
 			cmd.Parameters.AddWithValue("@amount", user.Amount);
 			cmd.Parameters.AddWithValue("@userid", user.AccountID);
 			conn.Open();
-			cmd.ExecuteReader();
-			return cmd.ExecuteNonQuery();
+			int rowsAffected = cmd.ExecuteNonQuery();
+
+			// Close the connection
+			conn.Close();
+			return rowsAffected;
 		}
 	}
 }

@@ -92,36 +92,34 @@ namespace WebApplication1.Controllers
         }
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public IActionResult DepositAmount(int amount) 
-        {
+		public IActionResult DepositAmount(decimal Amount)
+		{
+			List<User> userList = userContext.GetUsers();
 
-            List<User> userList = userContext.GetUsers();
+			foreach (var user in userList)
+			{
+				if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
+				{
+					if (Amount <= 0)
+					{
+						TempData["ErrorMsg"] = "You cannot deposit a non-positive amount";
+					}
+					else
+					{
+						decimal newAmount = user.Amount + Amount;
+						user.Amount = newAmount;
+						userContext.Deposit(user);
+						TempData["SuccessMsg"] = "Successful Deposit";
+						return RedirectToAction("Feedback");
+					}
+				}
+			}
 
-            foreach (var user in userList)
-            {
-                if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
-                {
-                    if (amount <= 0)
-                    {
-                        TempData["ErrorMsg"] = "You cannot deposit a negative amount";
-                    }
+			TempData["ErrorMsg"] = "User not found"; // Provide appropriate error message
+			return RedirectToAction("Feedback");
+		}
 
-                    else if (amount < 0)
-                    {
-                        decimal amt = user.Amount;
-                        decimal newamt = amt + amount;
-                        userContext.Deposit(user, newamt);
-                        TempData["SuccessMsg"] = "Successful Deposit";
-                        return RedirectToAction("Feedback");
-                    }
-
-                }
-            }
-            return View();
-        }
-
-        public IActionResult WithdrawAmount(int amount)
+		public IActionResult WithdrawAmount(int amount)
         {
 
 			List<User> userList = userContext.GetUsers();
@@ -133,6 +131,7 @@ namespace WebApplication1.Controllers
 					if (user.Amount - amount < 0)
                     {
                         TempData["ErrorMsg"] = "There is not enough amount to withdraw";
+                        return View();
                     }
 
                     else if (user.Amount - amount > 0)

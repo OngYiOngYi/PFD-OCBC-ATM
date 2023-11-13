@@ -15,10 +15,10 @@
 			font-family: 'Comfortaa', sans-serif;
 			width: 40%;
 			text-align: center;
-			display:flex;
-			justify-content:center;
-			align-items:center;
-			margin-left:30%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-left: 30%;
 		}
 
 		.login-form {
@@ -57,7 +57,8 @@
 			font-style: italic;
 			font-size: 14px;
 		}
-		.spacerers{
+
+		.spacerers {
 			margin-top: 10%;
 		}
 	</style>
@@ -66,17 +67,19 @@
 <body>
 	<div class="login-container">
 		<div class="container mt-5">
-			<a asp-area="" asp-controller="Chinese" asp-action="PinLogin">Chinese</a>
-			<h2>Login</h2>
+			<h2>登入</h2>
 			@if (ViewBag.ErrorMessage != null)
 			{
 				<p class="text-danger">@ViewBag.ErrorMessage</p>
 			}
-			<span> Please insert your <span style="color:red">CARD</span> and enter your pin<span>
+			<span>
+				请插入您的 <span style="color:red">卡片</span> 并输入您的密码
+			</span>
+
 			<br />
-			<form asp-action="Login" asp-controller="Home" class="spacerers" method="post">
+			<form asp-action="Login" asp-controller="Chinese" class="spacerers" method="post">
 				<div class="form-group">
-					<label asp-for="Password">Enter Your Pin</label>
+					<label asp-for="Password">输入您的密码</label>
 					<input asp-for="Password" type="password" class="form-control" required>
 				</div>
 				<button type="submit" class="btn btn-primary">Login</button>

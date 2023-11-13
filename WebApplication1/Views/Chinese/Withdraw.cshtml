@@ -9,7 +9,7 @@
     <style>
         .mains {
             display: flex;
-            flex-direction:column;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 55vh;
@@ -19,18 +19,20 @@
         header {
             text-align: center;
         }
-        .input-group{
+
+        .input-group {
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0;
         }
-        .input-group form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 10px; /* Adjust the gap as needed */
-            text-align: center;
-        }
+
+            .input-group form {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 10px; /* Adjust the gap as needed */
+                text-align: center;
+            }
 
         button[type="button"] {
             padding: 30px 60px; /* Increased padding */
@@ -44,9 +46,9 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        button[type="button"]:hover {
-            background-color: #2980b9;
-        }
+            button[type="button"]:hover {
+                background-color: #2980b9;
+            }
 
         .withdraw,
         .withdrawtext,
@@ -69,7 +71,7 @@
         </header>
 
         <div class="withdrawtext">
-            Please choose an amount to withdraw...
+            请选择提取金额...
         </div>
 
         <div class="input-group">
@@ -140,15 +142,15 @@
 
         window.addEventListener('beforeunload', function (e) {
             // Clear TempData when leaving the page
-        @if (TempData["WSuccessMsg"] != null)
-        {
-            TempData["WSuccessMsg"] = null;
-        }
-        @if (TempData["WErrorMsg"] != null)
-        {
-            TempData["WErrorMsg"] = null;
-        }
-            });
+            @if (TempData["WSuccessMsg"] != null)
+            {
+                TempData["WSuccessMsg"] = null;
+            }
+            @if (TempData["WErrorMsg"] != null)
+            {
+                TempData["WErrorMsg"] = null;
+            }
+        });
     </script>
 </body>
 </html>
