@@ -4,7 +4,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class Chinese : Controller
+    public class ChineseController : Controller
     {
 		private UserDAL userContext = new UserDAL();
 
@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
 			new User { AccountID = 100, Name="Itsuki Nakano", AccountNumber="12345678", Password="123456",Amount=10000 },
 		};
 
-		public Chinese()
+		public ChineseController()
 		{
 
 		}
