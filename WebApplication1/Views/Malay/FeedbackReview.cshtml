@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "Feedback Review";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .mains {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 45vh;
+            margin: 0;
+        }
+
+        .feedbackreview {
+            font-family: 'Comfortaa', sans-serif;
+        }
+
+        .feedback-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        .feedback-box {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);q
+        }
+
+        .feedback-box:hover {
+            transform: scale(1.1); /* Added scale transformation on hover */
+        }
+
+        .feedback-box input[type="checkbox"] {
+            display: none;
+        }
+
+        .feedback-box label {
+            display: block;
+            cursor: pointer;
+        }
+
+        .feedback-box label::before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        .feedback-box input[type="checkbox"]:checked + label::before {
+            background-color: #4CAF50;
+            border: 2px solid #4CAF50;
+        }
+
+        .feedback-box label:hover::before {
+            border-color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="mains">
+        <div class="feedbackreview">
+            Terima kasih kerana membuat perbankan di OCBC<br />
+            Sila berikan kami sedikit maklum balas...
+        </div>
+        <br />
+
+        <div class="feedback-grid">
+            <div class="feedback-box">
+                <input type="checkbox" id="box1" name="feedback" value="Improvement 1">
+                <label for="box1">Penyelenggaraan yang lemah</label>
+            </div>
+            <div class="feedback-box">
+                <input type="checkbox" id="box2" name="feedback" value="Improvement 2">
+                <label for="box2">Ketersediaan tunai yang tidak mencukupi</label>
+            </div>
+            <div class="feedback-box">
+                <input type="checkbox" id="box3" name="feedback" value="Improvement 3">
+                <label for="box3">Tiada cetakan resit</label>
+            </div>
+            <div class="feedback-box">
+                <input type="checkbox" id="box4" name="feedback" value="Improvement 4">
+                <label for="box4">Idea 4</label>
+            </div>
+            <div class="feedback-box">
+                <input type="checkbox" id="box5" name="feedback" value="Improvement 5">
+                <label for="box5">Idea 5</label>
+            </div>
+            <div class="feedback-box">
+                <input type="checkbox" id="box6" name="feedback" value="Improvement 6">
+                <label for="box6">Idea 6</label>
+            </div>
+            <div class="feedback-box">
+                <input type="checkbox" id="box7" name="feedback" value="Improvement 7">
+                <label for="box7">Idea 7</label>
+            </div>
+            <div class="feedback-box">
+                <input type="checkbox" id="box8" name="feedback" value="Improvement 8">
+                <label for="box8">Lain</label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectFeedback(feedback) {
+            // You can perform actions based on the selected feedback here
+            alert("You selected: " + feedback);
+            // For instance, you can use AJAX to send this feedback to the server
+        }
+
+        // Redirect after 7 seconds
+        setTimeout(function () {
+            window.location.href = 'Index'; // Replace 'index.html' with the actual URL of your index page
+        }, 7000); // 7 seconds = 7000 milliseconds
+    </script>
+</body>
+</html>

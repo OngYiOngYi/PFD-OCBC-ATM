@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "Withdraw";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw</title>
+    <style>
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .mains {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            margin: 0;
+            opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
+            transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
+        }
+
+        header {
+            text-align: center;
+        }
+
+        .withdrawtext {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        button[type="button"] {
+            padding: 15px 30px;
+            margin: 10px;
+            border: 2px solid #900d09;
+            background-color: #900d09;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        button[type="button"]:hover {
+            background-color: #bc544b; /* Change the background color on hover */
+            color: white;
+            transform: scale(1.1); /* Add a scaling effect on hover */
+        }
+
+        a[type="button"] {
+            padding: 10px 30px;
+            margin: 10px;
+            border: 2px solid #900d09;
+            background-color: #900d09;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+
+        a[type="button"]:hover {
+            background-color: #bc544b; /* Change the background color on hover */
+            color: white;
+            transform: scale(1.1); /* Add a scaling effect on hover */
+        }
+
+        .message {
+            font-family: 'Comfortaa', sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .success-message,
+        .error-message {
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .success-message {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .error-message {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
+</head>
+<body>
+    <div class="mains">
+        <header>
+            <h1 class="withdraw">Keluarkan</h1>
+        </header>
+
+        <div class="withdrawtext">
+            Masukkan Amaun untuk keluarkan...
+        </div>
+
+        <div class="input-group">
+            <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Malay" method="post">
+                <input type="hidden" id="withdrawAmount" name="amount" value="" />
+
+                <button type="button" onclick="withdraw(10)">$10</button>
+                <button type="button" onclick="withdraw(20)">$20</button>
+                <button type="button" onclick="withdraw(50)">$50</button>
+                <button type="button" onclick="withdraw(100)">$100</button>
+
+                <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
+            </form>
+        </div>
+        <a type="button" asp-controller="Malay" asp-action="WithdrawOA">Amaun Lain</a>
+
+        <div class="message" id="withdrawmessage">
+            @if (TempData["WSuccessMsg"] != null)
+            {
+                <div class="success-message">
+                    @TempData["WSuccessMsg"]
+                </div>
+            }
+
+            @if (TempData["WErrorMsg"] != null)
+            {
+                <div class="error-message">
+                    @TempData["WErrorMsg"]
+                </div>
+            }
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fadeIn(document.querySelector(".mains"));
+        });
+
+        function fadeIn(element) {
+            var opacity = 0;
+            var interval = setInterval(function () {
+                if (opacity < 1) {
+                    opacity += 0.05;
+                    element.style.opacity = opacity;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 10);
+        }
+
+        function withdraw(amount) {
+            var withdrawForm = document.getElementById("withdrawForm");
+            var messageDiv = document.getElementById("withdrawmessage");
+
+            // Display "Currently Withdrawing..." message with animated dots
+            var dots = 0;
+            var dotAnimation = setInterval(function () {
+                messageDiv.innerHTML = "Sedang Mengeluarkan" + ".".repeat(dots);
+                dots = (dots + 1) % 4; // 4 is the number of dots, adjust as needed
+            }, 200); // Adjust the interval as needed
+
+            // Delay for 3 seconds
+            setTimeout(function () {
+                clearInterval(dotAnimation); // Stop the dot animation
+                // Display "Successful Withdrawal" message
+                messageDiv.innerHTML = "Pengeluaran Berjaya";
+
+                // Delay for another 3 seconds
+                setTimeout(function () {
+                    // Set the withdrawal amount
+                    document.getElementById('withdrawAmount').value = amount;
+                    // Submit the withdrawal form
+                    withdrawForm.submit();
+                }, 3000);
+            }, 3000);
+        }
+
+        // JavaScript to show the message div if there's a message
+        window.onload = function () {
+            var messageDiv = document.getElementById("withdrawmessage");
+            if (messageDiv.innerHTML.trim() !== '') {
+                messageDiv.style.display = "block"; // Show the message if it's not empty
+            }
+        };
+
+        window.addEventListener('beforeunload', function (e) {
+            // Clear TempData when leaving the page
+        @if (TempData["WSuccessMsg"] != null)
+        {
+            TempData["WSuccessMsg"] = null;
+        }
+        @if (TempData["WErrorMsg"] != null)
+        {
+            TempData["WErrorMsg"] = null;
+        }
+                    });
+
+    </script>
+</body>
+</html>
+

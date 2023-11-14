@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+<!-- <a asp-area="" asp-controller="Home" asp-action="PinLogin">Pin Login</a> -->
+
+
+
+<style>
+    .container-fluidersers {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+    }
+
+    .rownaisu {
+        display: flex;
+        justify-content: center;
+    }
+
+    .boxiesers {
+        border: 1px solid #ccc;
+        padding: 150px; /* Increase the padding to make the boxes larger */
+        text-align: center;
+        margin: 10px; /* Add margin to space the boxes apart */
+    }
+</style>
+
+<a asp-area="" asp-controller="Malay" asp-action="Index">
+    Malay Testing
+</a>
+<a asp-area="" asp-controller="Chinese" asp-action="Index">
+    Chinese Testing
+</a>
+<a asp-area="" asp-controller="Impared" asp-action="Index">
+    Impared
+</a>
+
+<div class="container-fluidersers">
+    <div class="rownaisu">
+        <div class="col-lg-4">
+            <a asp-area="" asp-controller="Malay" asp-action="PinLogin" class="boxiesers">
+                <i class="fa-solid fa-credit-card fa-2xl"></i>
+            </a>
+        </div>
+
+        <div class="col-lg-4">
+            <a href="@Url.Action("EyeLogin", "Malay")" class="boxiesers">
+                <i class="fa-solid fa-eye fa-2xl"></i>
+            </a>
+        </div>
+
+        <div class="col-lg-4">
+            <a href="@Url.Action("Action3", "Controller")" class="boxiesers">
+                VR
+            </a>
+        </div>
+    </div>
+</div>
+
+
