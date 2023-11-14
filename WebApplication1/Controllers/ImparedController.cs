@@ -74,7 +74,7 @@ namespace WebApplication1.Controllers
         public IActionResult Home()
         {
             TempData["LoggedInUSer"] = "Isaac";
-            return View("Home");
+            return View();
         }
 
 
