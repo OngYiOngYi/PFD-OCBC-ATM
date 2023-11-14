@@ -31,5 +31,3 @@ video.addEventListener('play', () => {
         faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
     }, 100)
 })
-
-startVideo();
