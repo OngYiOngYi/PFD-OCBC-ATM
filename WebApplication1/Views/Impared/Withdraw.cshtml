@@ -8,55 +8,71 @@
 <head>
     <title>Withdraw</title>
     <style>
-        .mains {
+        .withdraw-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button-container {
             display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-start {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .btn-stop {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .container{
+            display:flex;
             flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            height: 0vh;
+        }
+        body{
+            font-family: 'Comfortaa', sans-serif;
+        }
+
+        .mains{
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 55vh;
             margin: 0;
-        }
-
-        header {
-            text-align: center;
-        }
-        .input-group{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-        }
-        .input-group form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 10px; /* Adjust the gap as needed */
-            text-align: center;
-        }
-
-        button[type="button"] {
-            padding: 30px 60px; /* Increased padding */
-            margin: 10px; /* Increased margin */
-            border: 2px solid #3498db;
-            background-color: #3498db;
-            color: #fff;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        button[type="button"]:hover {
-            background-color: #2980b9;
-        }
-
-        .withdraw,
-        .withdrawtext,
-        .message {
-            font-family: 'Comfortaa', sans-serif;
-        }
-
-        .lottie-container {
-            display: none;
         }
 
     </style>
@@ -72,18 +88,30 @@
         <div class="withdrawtext">
             Please choose an amount to withdraw...
         </div>
+    
 
         
-        <div>
+        <div class="container">
 
-            <form id="withdrawForm" asp-controller="Impared" asp-action="WithdrawAmount" method="post" onsubmit="return submitForm()">
+            <form id="withdrawForm" asp-controller="Impared" asp-action="WithdrawAmount" method="post" onsubmit="return submitForm()" class="withdraw-form">
+                <div class="form-group">
+                    <textarea asp-for="Amount" id="result" type="number" name="Amount" placeholder="Enter amount" class="form-control" required></textarea>
+                </div>
+                <div class="button-container">
+                    <button id="start" class="btn btn-start">Start</button>
+                    <button id="stop" class="btn btn-stop">Stop</button>
+                    <button type="submit" onclick="simulateWithdraw()" class="btn btn-submit">Submit</button>
+                </div>
+            </form>
+
+            @*<form id="withdrawForm" asp-controller="Impared" asp-action="WithdrawAmount" method="post" onsubmit="return submitForm()">
                 <textarea asp-for="Amount" id="result" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required></textarea>
                 <button id="start">Start</button>
                 <button id="stop">Stop</button>
                 <button type="submit" onclick="simulateWithdraw()">Submit</button>
             </form>
 
-           @* <textarea id="result" rows="5" cols="80"></textarea> <br>
+            <textarea id="result" rows="5" cols="80"></textarea> <br>
             <button id="start">Start</button>
             <button id="stop">Stop</button>
             <button id="submit">Submit</button>*@
@@ -92,6 +120,7 @@
         <div class="message" id="withdrawmessage">
             <!-- Your success and error message display here -->
         </div>
+    </div>
 
     <script type="text/javascript">
         var startButton = document.getElementById('start');

@@ -7,16 +7,14 @@
 <head>
     <title>Home</title>
     <style>
-
         .button-containerers {
             font-family: 'Comfortaa', sans-serif;
             display: flex;
-            justify-content: center;
+            justify-content: space-between; /* Distribute items evenly along the main axis */
             align-items: center;
             margin-top: 8%;
-            display: flex;
-            flex-direction: row;
             text-align: center;
+            width: 100%; /* Set width to 100% to occupy the entire available space */
         }
 
         .wdbuttonss {
@@ -26,27 +24,30 @@
             color: white;
             padding: 5% 7%;
             border-radius: 5px;
-            margin: 0% 5% 1% 5%;
-            font-size: 150%; /* Adjust the font size as desired */
+            font-size: 150%;
+            flex: 1; /* Distribute available space equally among the buttons */
+            box-sizing: border-box; /* Include padding in the button's width */
+            margin: 2px; /* Remove margin for even distribution */
         }
 
         .welcomezz {
             font-family: 'Comfortaa', sans-serif;
             margin: 0;
-            font-size: 24px; /* Adjust the font size as desired */
+            font-size: 24px;
+            text-align: left; 
         }
     </style>
 </head>
-<body123>
-    <div class="welcomezz">
-        Welcome: @TempData["LoggedInUser"]
-    </div>
-    <div>
-        Impared
-    </div>
-    <div class="button-containerers">
-        <a asp-area="" asp-controller="Impared" asp-action="Withdraw" class="wdbuttonss">Withdraw</a>
-        <a asp-area="" asp-controller="Impared" asp-action="Deposit" class="wdbuttonss">Deposit</a>
-    </div>
-</body123>
+    <body>
+        <div class="welcomezz">
+            Welcome: @TempData["LoggedInUser"]
+        </div>
+        <div>
+            Impaired
+        </div>
+        <div class="button-containerers">
+            <a asp-area="" asp-controller="Impared" asp-action="Withdraw" class="wdbuttonss">Withdraw</a>
+            <a asp-area="" asp-controller="Impared" asp-action="Deposit" class="wdbuttonss">Deposit</a>
+        </div>
+    </body>
 </html>
