@@ -118,31 +118,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult WithdrawAmount(int amount)
         {
-
-            List<User> userList = userContext.GetUsers();
-
-            foreach (var user in userList)
-            {
-                if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
-                {
-                    if (user.Amount - amount < 0)
-                    {
-                        TempData["ErrorMsg"] = "There is not enough amount to withdraw";
-                        return View();
-                    }
-
-                    else if (user.Amount - amount > 0)
-                    {
-                        decimal amt = user.Amount;
-                        decimal newamt = amt - amount;
-                        userContext.Withdraw(user, newamt);
-                        TempData["SuccessMsg"] = "Successful withdraw";
-                        return RedirectToAction("Feedback");
-                    }
-
-                }
-            }
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Feedback()

@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Withdraw";
 }
+@model WebApplication1.Models.User
 
 <!DOCTYPE html>
 <html>
@@ -74,10 +75,18 @@
 
         
         <div>
-            <textarea id="result" rows="8" cols="80"></textarea> <br>
+
+            <form id="withdrawForm" asp-controller="Impared" asp-action="WithdrawAmount" method="post" onsubmit="return submitForm()">
+                <textarea asp-for="Amount" id="result" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required></textarea>
+                <button id="start">Start</button>
+                <button id="stop">Stop</button>
+                <button type="submit" onclick="simulateWithdraw()">Submit</button>
+            </form>
+
+           @* <textarea id="result" rows="5" cols="80"></textarea> <br>
             <button id="start">Start</button>
             <button id="stop">Stop</button>
-            <button id="submit">Submit</button>
+            <button id="submit">Submit</button>*@
         </div>
 
         <div class="message" id="withdrawmessage">
