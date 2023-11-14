@@ -65,32 +65,33 @@
 				Please insert amount into ATM...
 			</div>
 
-			<div>
-			<div class="input-group">
-				<form asp-controller="Home" asp-action="DepositAmount" method="post" onsubmit="return submitForm()">
-					<input asp-for="Amount" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required>
-					<button type="submit">Submit</button>
-				</form>
-			</div>
+		<div>
+
+			<form id="withdrawForm" asp-controller="Impared" asp-action="DepositAmount" method="post" onsubmit="return submitForm()">
+				<textarea asp-for="Amount" id="result" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required></textarea>
+				<button id="start">Start</button>
+				<button id="stop">Stop</button>
+				<button type="submit" onclick="simulateDithdraw()">Submit</button>
+			</form>
 		</div>
 
-		<script>
-			function submitForm() {
-				var amount = document.getElementsByName("Amount")[0].value;
+		<script type="text/javascript">
+			var startButton = document.getElementById('start');
+			var stopButton = document.getElementById('stop');
+			var resultElement = document.getElementById('result');
 
-				// Validate the amount
-				if (amount <= 0) {
-					alert("You cannot deposit a non-positive amount");
-					return false; // Returning false prevents the form from submitting
-				}
+			var recognition = new webkitSpeechRecognition();
 
-				// If the amount is valid, you can proceed with the form submission
-				// Here, I'm assuming your form has the ID "depositForm"
-				document.getElementById("depositForm").submit();
+			recognition.lang = window.navigator.language;
+			recognition.interimResults = true;
 
-				// Optionally, you can return false to prevent the default form submission behavior
-				return false;
-			}
+			startButton.addEventListener('click', () => { recognition.start(); });
+			stopButton.addEventListener('click', () => { recognition.stop(); });
+
+			recognition.addEventListener('result', (event) => {
+				const result = event.results[event.results.length - 1][0].transcript;
+				resultElement.textContent = result;
+			});
 		</script>
 	</body>
 </html>

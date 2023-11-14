@@ -91,30 +91,8 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult DepositAmount(decimal Amount)
         {
-            List<User> userList = userContext.GetUsers();
-
-            foreach (var user in userList)
-            {
-                if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
-                {
-                    if (Amount <= 0)
-                    {
-                        TempData["ErrorMsg"] = "You cannot deposit a non-positive amount";
-                    }
-                    else
-                    {
-                        decimal newAmount = user.Amount + Amount;
-                        user.Amount = newAmount;
-                        userContext.Deposit(user);
-                        TempData["SuccessMsg"] = "Successful Deposit";
-                        return RedirectToAction("Feedback");
-                    }
-                }
-            }
-
-            TempData["ErrorMsg"] = "User not found"; // Provide appropriate error message
-            return RedirectToAction("Feedback");
-        }
+			return RedirectToAction("Index", "Home");
+		}
 
         public IActionResult WithdrawAmount(int amount)
         {
