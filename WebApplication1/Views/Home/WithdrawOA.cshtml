@@ -1,0 +1,129 @@
+﻿@model WebApplication1.Models.User
+
+@{
+	ViewData["Title"] = "WithdrawOA";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Deposit
+	</title>
+	<style>
+		.mains {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 50vh;
+			margin: 0;
+		}
+
+		.input-group {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+			.input-group input {
+				padding: 10px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				width: 200px;
+			}
+
+			.input-group button {
+				padding: 10px 20px;
+				background-color: #007bff;
+				color: white;
+				border: none;
+				border-radius: 5px;
+			}
+
+		.success-message {
+			color: green;
+			font-family: 'Comfortaa', sans-serif;
+		}
+
+		.error-message {
+			color: red;
+			font-family: 'Comfortaa', sans-serif;
+		}
+
+		.Deposit {
+			font-family: 'Comfortaa', sans-serif;
+		}
+
+		.DepositText {
+			font-family: 'Comfortaa', sans-serif;
+		}
+	</style>
+	<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="mains">
+		<h1 class="Deposit">Withdraw</h1>
+		<div class="DepositText">
+			Please enter amount to withdraw...
+		</div>
+
+		<div>
+			<div class="input-group">
+				<form id="depositForm" asp-controller="Home" asp-action="WithdrawAmountOA" method="post" onsubmit="return submitForm()">
+					<input asp-for="Amount" id="depositAmount" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required>
+					<button type="submit" onclick="simulateDeposit()">Submit</button>
+				</form>
+			</div>
+		</div>
+		<div id="dotMessage" style="display: none;"></div>
+		<div id="depositmessage" style="display: none;"></div>
+	</div>
+
+	<script>
+		// Function to simulate the deposit process with dot animation and success message
+		function simulateDeposit() {
+			// Call the function to show the dot message with animated dots
+			showDotMessage();
+
+			// Simulate a delay for 3 seconds before showing the success message
+			setTimeout(function () {
+				// Call the function to show the success message
+				showMessage("Successful Withdraw", 3000);
+			}, 3000);
+		}
+
+		// Function to display a message for a specified duration
+		function showMessage(message, duration) {
+			var messageDiv = document.getElementById("depositmessage");
+			messageDiv.innerHTML = message;
+
+			// Show the message div
+			messageDiv.style.display = "block";
+
+			// Delay for the specified duration
+			setTimeout(function () {
+				// Hide the message div after the delay
+				messageDiv.style.display = "none";
+			}, duration);
+		}
+
+		// Function to display the dot message with animated dots
+		function showDotMessage() {
+			var dotMessageDiv = document.getElementById("dotMessage");
+			dotMessageDiv.style.display = "block";
+
+			var dots = 0;
+			var dotAnimation = setInterval(function () {
+				dotMessageDiv.innerHTML = "Currently Withdrawing" + ".".repeat(dots);
+				dots = (dots + 1) % 3; // 4 is the number of dots, adjust as needed
+			}, 200); // Adjust the interval as needed
+
+			// Delay for 3 seconds
+			setTimeout(function () {
+				clearInterval(dotAnimation); // Stop the dot animation
+				dotMessageDiv.style.display = "none"; // Hide the dot message
+			}, 3000);
+		}
+	</script>
+</body>
+</html>

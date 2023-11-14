@@ -33,8 +33,8 @@
         }
 
         button[type="button"] {
-            padding: 30px 60px; /* Increased padding */
-            margin: 10px; /* Increased margin */
+            padding: 20px 40px; /* Increased padding */
+            margin: 5px; /* Increased margin */
             border: 2px solid #3498db;
             background-color: #3498db;
             color: #fff;
@@ -45,6 +45,24 @@
         }
 
         button[type="button"]:hover {
+            background-color: #2980b9;
+        }
+
+        a[type="button"] {
+            padding: 10px 30px; /* Increased padding */
+            margin: 5px; /* Increased margin */
+            border: 2px solid #3498db;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            text-decoration:none;
+
+        }
+
+        a[type="button"]:hover {
             background-color: #2980b9;
         }
 
@@ -82,8 +100,9 @@
                 <button type="button" onclick="withdraw(100)">$100</button>
 
                 <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
-            </form>
+            </form>      
         </div>
+        <a type="button" asp-controller="Home" asp-action="WithdrawOA">Other Amounts</a>
 
 
         <div class="message" id="withdrawmessage">

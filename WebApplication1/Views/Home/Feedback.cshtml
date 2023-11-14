@@ -8,7 +8,6 @@
 		<title>Feedback</title>
 		<style>
 			.rating {
-				padding: 20%;
 				justify-items: center;
 				justify-content: center;
 				text-align: center;
@@ -21,33 +20,76 @@
 			}
 
 			.rating i.filled {
-				color: #FFD700; /* Color for filled stars */
+				color: gold; /* Color for filled stars */
 			}
 
-			.rating i.filled {
-				color: #FFD700; /* Color for filled stars */
+			.mains {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				margin-top: 10%;
 			}
-	</style>
+			body{
+				font-family: 'Comfortaa', sans-serif;
+			}
+
+			.mmbutton {
+				padding: 10px 20px;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				transition: background-color 0.3s ease;
+				background-color:red;
+				color:white;
+				text-decoration: none;
+			}
+			#completedReview{
+				display:none;
+				margin-top:2%;
+				font-size: 20px;
+			}
+		</style>
 
 	</header>
 
 	<body>
-		<div class="rating">
-			<input type="hidden" id="rating-value" name="rating" value="0" />
-			<i class="fa-solid fa-star" data-index="1"></i>
-			<i class="fa-solid fa-star" data-index="2"></i>
-			<i class="fa-solid fa-star" data-index="3"></i>
-			<i class="fa-solid fa-star" data-index="4"></i>
-			<i class="fa-solid fa-star" data-index="5"></i>
+		<div class="mains">
+			<span>Please do Give us a Review for our bank services!</span>
+			<br />
+			<div class="rating">
+				<input type="hidden" id="rating-value" name="rating" value="0" />
+				<i class="fa-solid fa-star" data-index="1"></i>
+				<i class="fa-solid fa-star" data-index="2"></i>
+				<i class="fa-solid fa-star" data-index="3"></i>
+				<i class="fa-solid fa-star" data-index="4"></i>
+				<i class="fa-solid fa-star" data-index="5"></i>
+			</div>
+			<div id="completedReview"></div>
+			<br />
+			<br />
+			<div>
+			<a asp-area="" asp-controller="Home" asp-action="Index" class="mmbutton">Skip</a>
+			</div>
 		</div>
-
-		@*<div>
-			<button id="skip">Skip</button>
-		</div>*@
 	</body>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
+		function showMessage(message, duration) {
+			var messageDiv = $('#completedReview');
+			messageDiv.html(message);
+
+			// Show the message div
+			messageDiv.fadeIn();
+
+			// Delay for the specified duration
+			setTimeout(function () {
+				// Hide the message div after the delay
+				messageDiv.fadeOut();
+			}, duration);
+		}
+
 		$(document).ready(function () {
 			let currentRating = 0;
 
@@ -69,10 +111,13 @@
 
 				if (currentRating < 4) {
 					window.location.href = "FeedbackReview"; // Redirect to feedbackreview page
-				}
-				else if (currentRating >4)
-				{
-					window.location.href = 'Index';
+				} else if (currentRating >= 4) {
+					showMessage("Thank you for the feedback!", 3000);
+					setTimeout(function () {
+						window.location.href = 'Index';
+					}, 3000);
+					// Uncomment the line below if you want to redirect to 'Index' after showing the message
+
 				}
 			});
 

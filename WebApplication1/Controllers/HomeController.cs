@@ -86,6 +86,11 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public IActionResult WithdrawOA()
+        {
+            return View();
+        }
+
         public IActionResult Deposit()
         {
             return View();
@@ -152,7 +157,37 @@ namespace WebApplication1.Controllers
 			}
             return View();
 		}
+        public async Task<IActionResult> WithdrawAmountOA(decimal Amount)
+        {
+            List<User> userList = userContext.GetUsers();
 
+            foreach (var user in userList)
+            {
+                if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
+                {
+                    if (Amount <= 0)
+                    {
+                        TempData["ErrorMsg"] = "You cannot Withdraw a non-positive amount";
+                    }
+                    else
+                    {
+
+
+                        decimal newAmount = user.Amount - Amount;
+                        user.Amount = newAmount;
+                        userContext.Withdraw(user,newAmount);
+
+                        TempData["DotMessage"] = "";
+                        TempData["SuccessMsg"] = "Successful Withdraw";
+                        await Task.Delay(6000);
+                        return RedirectToAction("Feedback");
+                    }
+                }
+            }
+
+            TempData["ErrorMsg"] = "User not found";
+            return View();
+        }
         public IActionResult Feedback()
         {
             return View();
