@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Eye Scan";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eye Scan</title>
+</head>
+<body>
+    <video id="videoElement" autoplay></video>
+
+    <script>
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                var video = document.getElementById('videoElement');
+                video.srcObject = stream;
+
+                setTimeout(function () {
+                    window.location.href = '@Url.Action("Chinese", "Home")';
+                }, 5000); // Redirect after 5 seconds (5000 milliseconds)
+            })
+            .catch(function (err) {
+                console.log('Error accessing the camera: ' + err);
+            });
+    </script>
+</body>
+</html>

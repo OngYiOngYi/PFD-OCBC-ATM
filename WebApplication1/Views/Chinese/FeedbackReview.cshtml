@@ -1,0 +1,120 @@
+﻿@{
+    ViewData["Title"] = "Feedback Review";
+}
+<html>
+	<header>
+		<style>
+            .mains{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 45vh;
+                margin: 0;
+            }
+            .feedback-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-gap: 10px;
+            }
+
+            .feedback-box {
+            font-family: 'Comfortaa', sans-serif;
+                background-color: #f0f0f0;
+                border-radius: 5px;
+                padding: 10px;
+                text-align: center;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .feedback-box input[type="checkbox"] {
+                display: none;
+            }
+
+            .feedback-box label {
+                display: block;
+                cursor: pointer;
+            }
+
+            .feedback-box label::before {
+                content: "";
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+                border: 2px solid #ccc;
+                border-radius: 4px;
+                vertical-align: middle;
+            }
+
+            .feedback-box input[type="checkbox"]:checked + label::before {
+                background-color: #4CAF50;
+                border: 2px solid #4CAF50;
+            }
+
+            .feedback-box label:hover::before {
+                border-color: #888;
+            }
+            
+            .feedbackreview{
+                font-family: 'Comfortaa', sans-serif;
+            }
+		</style>
+	</header>
+	<body>
+        <div class="mains">
+		    <div class="feedbackreview">
+                感谢您使用 OCBC<br />
+                请给我们一些反馈意见
+		    </div>
+            <br />
+
+            <div class="feedback-grid">
+                <div class="feedback-box">
+                    <input type="checkbox" id="box1" name="feedback" value="Improvement 1">
+                    <label for="box1">维护不善</label>
+                </div>
+                <div class="feedback-box">
+                    <input type="checkbox" id="box2" name="feedback" value="Improvement 2">
+                    <label for="box2">现金供应不足</label>
+                </div>
+                <div class="feedback-box">
+                    <input type="checkbox" id="box3" name="feedback" value="Improvement 3">
+                    <label for="box3">不打印收据</label>
+                </div>
+                <div class="feedback-box">
+                    <input type="checkbox" id="box4" name="feedback" value="Improvement 4">
+                    <label for="box4">Idea 4</label>
+                </div>
+                <div class="feedback-box">
+                    <input type="checkbox" id="box5" name="feedback" value="Improvement 5">
+                    <label for="box5">Idea 5</label>
+                </div>
+                <div class="feedback-box">
+                    <input type="checkbox" id="box6" name="feedback" value="Improvement 6">
+                    <label for="box6">Idea 6</label>
+                </div>
+                <div class="feedback-box">
+                    <input type="checkbox" id="box7" name="feedback" value="Improvement 7">
+                    <label for="box7">Idea 7</label>
+                </div>
+                <div class="feedback-box">
+                    <input type="checkbox" id="box8" name="feedback" value="Improvement 8">
+                    <label for="box8">其它</label>
+                </div>
+            </div>
+        </div>
+        <script>
+            function selectFeedback(feedback) {
+                // You can perform actions based on the selected feedback here
+                alert("You selected: " + feedback);
+                // For instance, you can use AJAX to send this feedback to the server
+            }
+
+            // Redirect after 7 seconds
+            setTimeout(function () {
+                window.location.href = 'Index'; // Replace 'index.html' with the actual URL of your index page
+            }, 7000); // 7 seconds = 7000 milliseconds
+        </script>
+	</body>
+</html>

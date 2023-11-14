@@ -49,7 +49,7 @@ namespace WebApplication1.Controllers
 				{
 					TempData["LoggedInUSer"] = user.Name;
 					HttpContext.Session.SetInt32("UserID", user.AccountID);
-					return RedirectToAction("Home", "Home");
+					return RedirectToAction("Home");
 				}
 			}
 			return RedirectToAction("Index");
