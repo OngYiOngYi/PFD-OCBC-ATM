@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Thumbprint Login";
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+
+        </style>
+    </head>
+    <body>
+    @*<script src="https://cdn.passwordless.dev/dist/0.0.1/passwordlessclient.min.js" integrity="sha384-TPor6eIWM4IefSReNrio8zR0tr3LIHYNSwlSNKArZo42TEWTmByjkkJm/vvnUxxv" crossorigin="anonymous"></script>
+
+    <button id="passwordless-enable">Enable passswordless sign in</button>
+
+    <script>
+        async function RegisterPasswordless(e) {
+            e.preventDefault();
+
+            var p = new Client({
+                apiKey: "demo:public:xxx" // replace with your public api key
+            });
+
+            // call your backend to get a passwordless token
+            var myToken = await fetch("/example-backend/passwordless/token").then(r => r.text());
+
+            try {
+                await p.register(myToken);
+                // if no error is returned, the credential was successfully registered
+                console.log("Finished registering, you can now sign in!");
+
+            } catch (e) {
+                console.error("Things went bad: ", e);
+            }
+        }
+
+        document.getElementById('passwordless-enable').addEventListener('click', RegisterPasswordless);
+    </script>
+    </body>*@
+
+</html>
