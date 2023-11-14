@@ -3,79 +3,108 @@
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Withdraw</title>
     <style>
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
         .mains {
             display: flex;
-            flex-direction:column;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 55vh;
+            height: 60vh;
             margin: 0;
+            opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
+            transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
         }
 
         header {
             text-align: center;
         }
-        .input-group{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-        }
-        .input-group form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 10px; /* Adjust the gap as needed */
+
+        .withdrawtext {
             text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
         }
 
         button[type="button"] {
-            padding: 20px 40px; /* Increased padding */
-            margin: 5px; /* Increased margin */
-            border: 2px solid #3498db;
-            background-color: #3498db;
+            padding: 15px 30px;
+            margin: 10px;
+            border: 2px solid #900d09;
+            background-color: #900d09;
             color: #fff;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         button[type="button"]:hover {
-            background-color: #2980b9;
+            background-color: #bc544b; /* Change the background color on hover */
+            color: white;
+            transform: scale(1.1); /* Add a scaling effect on hover */
         }
 
         a[type="button"] {
-            padding: 10px 30px; /* Increased padding */
-            margin: 5px; /* Increased margin */
-            border: 2px solid #3498db;
-            background-color: #3498db;
+            padding: 10px 30px;
+            margin: 10px;
+            border: 2px solid #900d09;
+            background-color: #900d09;
             color: #fff;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            text-decoration:none;
-
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
         }
 
         a[type="button"]:hover {
-            background-color: #2980b9;
+            background-color: #bc544b; /* Change the background color on hover */
+            color: white;
+            transform: scale(1.1); /* Add a scaling effect on hover */
         }
 
-        .withdraw,
-        .withdrawtext,
         .message {
             font-family: 'Comfortaa', sans-serif;
+            text-align: center;
+            margin-top: 20px;
         }
 
-        .lottie-container {
-            display: none;
+        .success-message,
+        .error-message {
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
         }
 
+        .success-message {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .error-message {
+            background-color: #e74c3c;
+            color: #fff;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
@@ -100,10 +129,9 @@
                 <button type="button" onclick="withdraw(100)">$100</button>
 
                 <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
-            </form>      
+            </form>
         </div>
         <a type="button" asp-controller="Home" asp-action="WithdrawOA">Other Amounts</a>
-
 
         <div class="message" id="withdrawmessage">
             @if (TempData["WSuccessMsg"] != null)
@@ -122,6 +150,22 @@
         </div>
     </div>
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fadeIn(document.querySelector(".mains"));
+        });
+
+        function fadeIn(element) {
+            var opacity = 0;
+            var interval = setInterval(function () {
+                if (opacity < 1) {
+                    opacity += 0.05;
+                    element.style.opacity = opacity;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 10);
+        }
+
         function withdraw(amount) {
             var withdrawForm = document.getElementById("withdrawForm");
             var messageDiv = document.getElementById("withdrawmessage");
@@ -167,7 +211,8 @@
         {
             TempData["WErrorMsg"] = null;
         }
-            });
+                    });
+
     </script>
 </body>
 </html>
