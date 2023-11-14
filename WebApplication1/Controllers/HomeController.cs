@@ -92,7 +92,7 @@ namespace WebApplication1.Controllers
         }
 
 		[HttpPost]
-		public IActionResult DepositAmount(decimal Amount)
+		public async Task<IActionResult> DepositAmount(decimal Amount)
 		{
 			List<User> userList = userContext.GetUsers();
 
@@ -106,17 +106,22 @@ namespace WebApplication1.Controllers
 					}
 					else
 					{
+
+
 						decimal newAmount = user.Amount + Amount;
 						user.Amount = newAmount;
 						userContext.Deposit(user);
+
+						TempData["DotMessage"] = ""; 
 						TempData["SuccessMsg"] = "Successful Deposit";
+						await Task.Delay(6000);
 						return RedirectToAction("Feedback");
 					}
 				}
 			}
 
-			TempData["ErrorMsg"] = "User not found"; // Provide appropriate error message
-			return RedirectToAction("Feedback");
+			TempData["ErrorMsg"] = "User not found";
+            return View();
 		}
 
 		public IActionResult WithdrawAmount(int amount)
