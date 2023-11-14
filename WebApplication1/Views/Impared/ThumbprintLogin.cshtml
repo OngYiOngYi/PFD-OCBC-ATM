@@ -37,11 +37,9 @@
         let scan = document.querySelector('.scan');
         let timer, timerSuccesss;
 
-
         function onSuccess() {
             body.removeEventListener('mousedown', onTouchstart);
             body.removeEventListener('touchstart', onTouchstart);
-
 
             fingerprint.classList.remove('active');
             center.classList.add('success')
@@ -51,14 +49,19 @@
             timerSuccesss = setTimeout(() => {
                 body.addEventListener('mousedown', onTouchstart);
                 body.addEventListener('touchstart', onTouchstart);
-                center.classList.remove('success')
+                center.classList.remove('success');
+
+                // Redirect to the home page after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'Home'; // Replace '/home' with your actual home page URL
+                }, 1000);
 
             }, 3000);
         }
 
         function onTouchstart() {
             fingerprint.classList.add('active');
-            timer = setTimeout(onSuccess, 2000)
+            timer = setTimeout(onSuccess, 2000);
         }
 
         function onTouchEnd() {
@@ -70,6 +73,7 @@
         body.addEventListener('touchstart', onTouchstart)
         body.addEventListener('mouseup', onTouchEnd)
         body.addEventListener('touchend', onTouchEnd)
+
         </script>
     </body>
 
