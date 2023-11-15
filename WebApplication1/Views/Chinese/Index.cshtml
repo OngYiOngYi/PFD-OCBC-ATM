@@ -6,56 +6,119 @@
 
 
 <style>
-    .container-fluidersers {
+    body {
+        margin: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 60vh;
+        min-height: 100vh;
+        background-color: #e5e5f7;
+    }
+
+    .container-fluidersers {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content:center;
+        text-align: center;
+        height:100%;
+        opacity:0;
     }
 
     .rownaisu {
+        margin-top:50%;
         display: flex;
         justify-content: center;
+        align-items:center;
+        align-content:center;
+        margin-top: 10%;
     }
 
-    .boxiesers {
-        border: 1px solid #ccc;
-        padding: 150px; /* Increase the padding to make the boxes larger */
+    .boxiesers{
+        font-size: 400%;
+        margin: 20px; /* Add margin to space the boxes apart */
+    }
+
+    .fa-solid {
+        padding: 0 70px 0 70px; /* Adjusted padding */
         text-align: center;
-        margin: 10px; /* Add margin to space the boxes apart */
+        color: #b22222;
+        transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .fa-solid:hover {
+            color: #cd5c5c;
+            transform: scale(1.1); /* Add a scaling effect on hover */
+    }
+
+    .toppies{
+        margin-top: -15%;
     }
 </style>
 
-<a asp-area="" asp-controller="Malay" asp-action="Index">
-    马来语
+@*<a asp-area="" asp-controller="Malay" asp-action="Index">
+    Malay Testing
 </a>
 <a asp-area="" asp-controller="Chinese" asp-action="Index">
-    中文
+    Chinese Testing
 </a>
 <a asp-area="" asp-controller="Impared" asp-action="Index">
-    受损
-</a>
+    Impaired
+</a>*@
 
+<div class="easein">
+<h1 style="text-align:center;" class="toppies"><b>Please choose your login method</b></h1>
 <div class="container-fluidersers">
     <div class="rownaisu">
         <div class="col-lg-4">
-            <a asp-area="" asp-controller="Chinese" asp-action="PinLogin" class="boxiesers">
-                <i class="fa-solid fa-credit-card fa-2xl"></i>
+            <a asp-area="" asp-controller="Home" asp-action="PinLogin" class="boxiesers">
+                <i class="fa-solid fa-credit-card fa-2x"></i>
             </a>
         </div>
 
         <div class="col-lg-4">
-            <a href="@Url.Action("EyeLogin", "Chinese")" class="boxiesers">
-                <i class="fa-solid fa-eye fa-2xl"></i>
+            <a asp-area="" asp-controller="Impared" asp-action="ThumbprintLogin" class="boxiesers">
+                <i class="fa-solid fa-fingerprint fa-2x"></i>
             </a>
         </div>
 
         <div class="col-lg-4">
-            <a href="@Url.Action("Action3", "Controller")" class="boxiesers">
-                VR
+            <a asp-area="" asp-controller="Vr" asp-action="PinLogin" class="boxiesers">
+                <i class="fa-solid fa-vr-cardboard fa-2xl"></i>
             </a>
         </div>
     </div>
+    </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fadeIn(document.querySelector(".container-fluidersers"));
+    });
 
+    function fadeIn(element) {
+        var opacity = 0;
+        var interval = setInterval(function () {
+            if (opacity < 1) {
+                opacity += 0.05;
+                element.style.opacity = opacity;
+            } else {
+                clearInterval(interval);
+            }
+        }, 50);
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        fadeIn(document.querySelector(".toppies"));
+    });
 
+    function fadeIn(element) {
+        var opacity = 0;
+        var interval = setInterval(function () {
+            if (opacity < 1) {
+                opacity += 0.05;
+                element.style.opacity = opacity;
+            } else {
+                clearInterval(interval);
+            }
+        }, 50);
+    }
+</script>

@@ -49,7 +49,7 @@ namespace WebApplication1.Controllers
                 {
                     TempData["LoggedInUSer"] = user.Name;
                     HttpContext.Session.SetInt32("UserID", user.AccountID);
-                    return RedirectToAction("Home", "Chinese");
+                    return RedirectToAction("Withdraw", "Home");
                 }
             }
             return RedirectToAction("Index");
@@ -195,6 +195,11 @@ namespace WebApplication1.Controllers
         }
 
         public IActionResult PinLogin()
+        {
+            return View();
+        }
+
+        public IActionResult Welcome()
         {
             return View();
         }

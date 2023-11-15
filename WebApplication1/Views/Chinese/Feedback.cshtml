@@ -16,12 +16,13 @@
             background-color: #f4f4f4;
         }
 
+
         .mains {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: 10%;
+            margin-top: 15%;
             opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
             transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
         }
@@ -30,7 +31,7 @@
             justify-items: center;
             justify-content: center;
             text-align: center;
-            color: #ddd;
+            color: darkgray;
         }
 
         .rating i {
@@ -74,9 +75,7 @@
 </head>
 <body>
     <div class="mains">
-        <span>
-            请对我们的银行服务进行评价！
-        </span>
+        <span>请对我们的银行服务给予评价！</span>
         <br />
         <div class="rating">
             <input type="hidden" id="rating-value" name="rating" value="0" />
@@ -90,7 +89,7 @@
         <br />
         <br />
         <div>
-            <a asp-area="" asp-controller="Chinese" asp-action="Index" class="mmbutton">跳过</a>
+            <a asp-area="" asp-controller="Home" asp-action="Welcome" class="mmbutton">跳过</a>
         </div>
     </div>
 
@@ -150,7 +149,7 @@
                 } else if (currentRating >= 4) {
                     showMessage("感谢您的反馈！", 3000);
                     setTimeout(function () {
-                        window.location.href = 'Index';
+                        window.location.href = '/Home/Welcome';
                     }, 3000);
                 }
             });
@@ -164,6 +163,9 @@
                 }
             });
         });
+        setTimeout(function () {
+            window.location.href = '/Home/Welcome'; // Replace 'index.html' with the actual URL of your index page
+        }, 10000); // 7 seconds = 7000 milliseconds
     </script>
 </body>
 </html>

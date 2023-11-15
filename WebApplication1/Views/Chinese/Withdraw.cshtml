@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Withdraw";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -13,7 +14,29 @@
             font-family: 'Comfortaa', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: white;
+            z-index:-5;
+        }
+
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40%;
+            height: 100%;
+            z-index: -4; /* Set a negative z-index to position it behind the content */
+            margin-left: 60%;
+            background-color: blue;
+            opacity: 0.1;
+            background: linear-gradient(135deg, #4d4d4d55 25%, transparent 25%) -40px 0/ 80px 80px, linear-gradient(225deg, #4d4d4d 25%, transparent 25%) -40px 0/ 80px 80px, linear-gradient(315deg, #4d4d4d55 25%, transparent 25%) 0px 0/ 80px 80px, linear-gradient(45deg, #4d4d4d 25%, #e5e5f7 25%) 0px 0/ 80px 80px;
+        }
+
+        .seperation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            width: 100%; /* Cover the full width of the website */
         }
 
         .mains {
@@ -21,10 +44,18 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 60vh;
-            margin: 0;
-            opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
-            transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
+            background-color:white;
+            height: 100%; /* Updated to 100% to cover the full height of the container */
+            width: 60%;
+        }
+
+        .right-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* Updated to 100% to cover the full height of the container */
+            width: 40%;
         }
 
         header {
@@ -33,20 +64,28 @@
 
         .withdrawtext {
             text-align: center;
-            margin: 20px 0;
+            margin: 0% 30% 0% 0%;
             font-size: 18px;
             color: #555;
         }
 
+        .input-group form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, auto); /* Added to create a 2x2 grid */
+            grid-gap: 10px; /* Adjust the gap as needed */
+            margin-top: 10px;
+        }
+
         .input-group {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 20px 0;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
         }
 
         button[type="button"] {
-            padding: 15px 30px;
+            padding: 25px 50px;
             margin: 10px;
             border: 2px solid #900d09;
             background-color: #900d09;
@@ -64,7 +103,7 @@
         }
 
         a[type="button"] {
-            padding: 10px 30px;
+            padding: 20px 80px;
             margin: 10px;
             border: 2px solid #900d09;
             background-color: #900d09;
@@ -105,53 +144,103 @@
             background-color: #e74c3c;
             color: #fff;
         }
+
+        .right-side > div {
+            margin: 10px;
+        }
+
+        .top-boxes {
+            display: flex;
+        }
+
+        .box {
+            border-radius:5px;
+            width: 120px;
+            height: 220px;
+            margin: 0px 20px 0 20px;
+            background-color: #ccc; /* Set your desired background color */
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            margin: 15px; /* Add some spacing between the boxes */
+        }
+        .box:hover{
+            cursor:pointer;
+        }
+
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
 </head>
 <body>
-    <div class="mains">
-        <header>
-            <h1 class="withdraw">提取</h1>
-        </header>
+    <div class="background-container"> </div>
+    <div class="seperation">
+        <div class="mains">
+            <div class="toplayers">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+            </div>
+            <header>
+                <h1 class="withdraw">欢迎 <span>@TempData["LoggedInUser"]</span>!</h1>
+                <p>今天你想做什么？</p>
+            </header>
 
-        <div class="withdrawtext">
-            请选择提款金额...
+            <div class="withdrawtext">
+                赚钱
+            </div>
+
+            <div class="input-group">
+                <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Chinese" method="post">
+                    <input type="hidden" id="withdrawAmount" name="amount" value="" />
+
+                    <button type="button" onclick="withdraw(10)">$10</button>
+                    <button type="button" onclick="withdraw(20)">$20</button>
+                    <button type="button" onclick="withdraw(50)">$50</button>
+                    <button type="button" onclick="withdraw(100)">$100</button>
+
+                    <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
+                </form>
+            </div>
+            <a type="button" asp-controller="Chinese" asp-action="WithdrawOA">
+                其他金额
+            </a>
+
+            <div class="message" id="withdrawmessage">
+                @if (TempData["WSuccessMsg"] != null)
+                {
+                    <div class="success-message">
+                        @TempData["WSuccessMsg"]
+                    </div>
+                }
+
+                @if (TempData["WErrorMsg"] != null)
+                {
+                    <div class="error-message">
+                        @TempData["WErrorMsg"]
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="right-side">
+            <div>
+                <p style="margin-right:130px;"><b>其他服务</b></p>
+            </div>
+            <div class="top-boxes">
+                <div class="box">询问余额</div>
+                <div class="box">资金转移</div>
+            </div>
+            <div>
+                <a href="#" style="margin-left:130px"> 更多服务></a>
+            </div>
         </div>
 
-        <div class="input-group">
-            <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Chinese" method="post">
-                <input type="hidden" id="withdrawAmount" name="amount" value="" />
-
-                <button type="button" onclick="withdraw(10)">$10</button>
-                <button type="button" onclick="withdraw(20)">$20</button>
-                <button type="button" onclick="withdraw(50)">$50</button>
-                <button type="button" onclick="withdraw(100)">$100</button>
-
-                <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
-            </form>
-        </div>
-        <a type="button" asp-controller="Chinese" asp-action="WithdrawOA">其他金额</a>
-
-        <div class="message" id="withdrawmessage">
-            @if (TempData["WSuccessMsg"] != null)
-            {
-                <div class="success-message">
-                    @TempData["WSuccessMsg"]
-                </div>
-            }
-
-            @if (TempData["WErrorMsg"] != null)
-            {
-                <div class="error-message">
-                    @TempData["WErrorMsg"]
-                </div>
-            }
-        </div>
     </div>
+
+    
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            fadeIn(document.querySelector(".mains"));
+            fadeIn(document.querySelector(".seperations"));
         });
 
         function fadeIn(element) {
@@ -173,7 +262,7 @@
             // Display "Currently Withdrawing..." message with animated dots
             var dots = 0;
             var dotAnimation = setInterval(function () {
-                messageDiv.innerHTML = "正在撤回" + ".".repeat(dots);
+                messageDiv.innerHTML = "我们正在准备您的现金" + ".".repeat(dots);
                 dots = (dots + 1) % 4; // 4 is the number of dots, adjust as needed
             }, 200); // Adjust the interval as needed
 
@@ -190,7 +279,7 @@
                     // Submit the withdrawal form
                     withdrawForm.submit();
                 }, 3000);
-            }, 3000);
+            }, 5000);
         }
 
         // JavaScript to show the message div if there's a message

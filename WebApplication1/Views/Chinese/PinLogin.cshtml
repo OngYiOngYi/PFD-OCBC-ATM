@@ -19,7 +19,7 @@
 
         .login-container {
             background-color: #fff;
-            padding: 20px;
+            padding:50px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 40%;
@@ -27,10 +27,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content:center;
-            margin:auto;
-            opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
-            transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
+            justify-content: center;
+            margin: 5% 30% 0% 30%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
 
         .login-form {
@@ -48,6 +48,7 @@
             margin-bottom: 10px;
             border-radius: 4px;
             border: 1px solid #ccc;
+            text-align:center;
         }
 
         .btn {
@@ -74,25 +75,32 @@
         }
 
         .spacerers {
-            margin-top: 10%;
+            margin-top: 5%;
+        }
+
+        .upsies{
+            margin-top:-10px;
         }
     </style>
 </head>
 <body>
+    <div class="toplayers">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Chinese" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+    </div>
     <div class="login-container">
         <div class="container mt-5">
-            <h2>登录</h2>
+            <h2 class="upsies">Login</h2>
             @if (ViewBag.ErrorMessage != null)
             {
                 <p class="text-danger">@ViewBag.ErrorMessage</p>
             }
-            <span>请插入您的 <span style="color:red">卡</span> 并输入您的密码</span>
+            <span>
+                请输入 <span style="color:red">卡</span> 并输入密码
+            </span>
             <br />
             <form asp-action="Login" asp-controller="Chinese" class="spacerers" method="post">
                 <div class="form-group">
-                    <label asp-for="Password">
-                        输入您的密码
-                    </label>
+                    <label asp-for="Password">输入您的密码</label>
                     <input asp-for="Password" type="password" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-primary adding">

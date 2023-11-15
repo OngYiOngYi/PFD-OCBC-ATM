@@ -20,8 +20,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            margin-top:7%;
             height: 45vh;
-            margin: 0;
         }
 
         .feedbackreview {
@@ -78,6 +78,9 @@
     </style>
 </head>
 <body>
+    <div class="toplayers">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Chinese" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+    </div>
     <div class="mains">
         <div class="feedbackreview">
             谢谢您使用 OCBC<br />
@@ -94,13 +97,11 @@
             </div>
             <div class="feedback-box">
                 <input type="checkbox" id="box2" name="feedback" value="Improvement 2">
-                <label for="box2">
-                    可用现金不足
-                </label>
+                <label for="box2">ATM现金不足</label>
             </div>
             <div class="feedback-box">
                 <input type="checkbox" id="box3" name="feedback" value="Improvement 3">
-                <label for="box3">没有收据打印</label>
+                <label for="box3">没有收据打印输出</label>
             </div>
             <div class="feedback-box">
                 <input type="checkbox" id="box4" name="feedback" value="Improvement 4">
@@ -120,9 +121,7 @@
             </div>
             <div class="feedback-box">
                 <input type="checkbox" id="box8" name="feedback" value="Improvement 8">
-                <label for="box8">
-                    其他
-                </label>
+                <label for="box8">其它</label>
             </div>
         </div>
     </div>
@@ -136,8 +135,8 @@
 
         // Redirect after 7 seconds
         setTimeout(function () {
-            window.location.href = 'Index'; // Replace 'index.html' with the actual URL of your index page
-        }, 7000); // 7 seconds = 7000 milliseconds
+            window.location.href = '/Home/Welcome'; // Replace 'index.html' with the actual URL of your index page
+        }, 10000); // 7 seconds = 7000 milliseconds
     </script>
 </body>
 </html>
