@@ -159,3 +159,9 @@ body {
         -moz-animation-delay: 1s;
         animation-delay: 1s;
     }
+
+.toplayers {
+    display: flex;
+    justify-content: flex-start; /* Align contents to the left */
+}
+
