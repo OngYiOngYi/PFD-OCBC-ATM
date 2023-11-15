@@ -19,17 +19,6 @@
             background-color: #f4f4f4;
         }
 
-        .background-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Set a negative z-index to position it behind the content */
-            background-color: #e5e5f7;
-            opacity: 0.1;
-            background: linear-gradient(135deg, #38394f55 25%, transparent 25%) -17px 0/ 34px 34px, linear-gradient(225deg, #38394f 25%, transparent 25%) -17px 0/ 34px 34px, linear-gradient(315deg, #38394f55 25%, transparent 25%) 0px 0/ 34px 34px, linear-gradient(45deg, #38394f 25%, #e5e5f7 25%) 0px 0/ 34px 34px;
-        }
 
         .mains {
             display: flex;
@@ -37,7 +26,7 @@
             align-items: center;
             justify-content: center;
             height: 60vh;
-            margin: 0;
+            margin-top: 5%;
             opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
             transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
         }
@@ -107,7 +96,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-container"> </div>
+    <div class="toplayers">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+    </div>
     <div class="mains">
         <h1 class="Deposit">Deposit</h1>
         <div class="DepositText">

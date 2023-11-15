@@ -14,15 +14,15 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            overflow:hidden;
         }
 
         .seperation {
             display: flex;
-            flex-direction: row;
-            align-items: stretch; /* Updated to stretch the items to the full height of the container */
-            justify-content: space-between; /* Added to separate the left and right sides */
-            height: 60vh; /* Updated to 100vh to cover the full height of the viewport */
-            width:100%;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            width: 100%; /* Cover the full width of the website */
         }
 
         .mains {
@@ -31,10 +31,8 @@
             align-items: center;
             justify-content: center;
             background-color:white;
-            height: 105%; /* Updated to 100% to cover the full height of the container */
+            height: 100%; /* Updated to 100% to cover the full height of the container */
             width: 100%;
-            margin:0;
-            padding:50px 0 50px 0;
         }
 
         .right-side {
@@ -57,15 +55,23 @@
             color: #555;
         }
 
+        .input-group form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, auto); /* Added to create a 2x2 grid */
+            grid-gap: 10px; /* Adjust the gap as needed */
+            margin-top: 10px;
+        }
+
         .input-group {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 20px 0;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
         }
 
         button[type="button"] {
-            padding: 15px 30px;
+            padding: 25px 50px;
             margin: 10px;
             border: 2px solid #900d09;
             background-color: #900d09;
@@ -83,7 +89,7 @@
         }
 
         a[type="button"] {
-            padding: 10px 30px;
+            padding: 20px 80px;
             margin: 10px;
             border: 2px solid #900d09;
             background-color: #900d09;
@@ -124,15 +130,6 @@
             background-color: #e74c3c;
             color: #fff;
         }
-        .right-side{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 60vh;
-            margin: 0;
-            width: 50%;
-        }
 
         .right-side > div {
             margin: 10px;
@@ -148,29 +145,21 @@
             height: 220px;
             margin: 0px 20px 0 20px;
             background-color: #ccc; /* Set your desired background color */
-            margin-right: 10px; /* Add some spacing between the boxes */
+            margin: 15px; /* Add some spacing between the boxes */
         }
 
-        .background-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Set a negative z-index to position it behind the content */
-            background-color: #e5e5f7;
-            opacity: 0.1;
-            background: linear-gradient(135deg, #38394f55 25%, transparent 25%) -17px 0/ 34px 34px, linear-gradient(225deg, #38394f 25%, transparent 25%) -17px 0/ 34px 34px, linear-gradient(315deg, #38394f55 25%, transparent 25%) 0px 0/ 34px 34px, linear-gradient(45deg, #38394f 25%, #e5e5f7 25%) 0px 0/ 34px 34px;
-        }
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
 </head>
 <body>
-    <div class="background-container"> </div>
+
     <div class="seperation">
         <div class="mains">
+            <div class="toplayers">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+            </div>
             <header>
                 <h1 class="withdraw">Withdraw</h1>
             </header>
