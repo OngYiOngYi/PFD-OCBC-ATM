@@ -168,8 +168,8 @@
                 Please choose an amount to withdraw...
             </div>
 
-            <div class="input-group">
-                <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Home" method="post">
+            @*<div class="input-group">
+                <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Vr" method="post">
                     <input type="hidden" id="withdrawAmount" name="amount" value="" />
 
                     <button type="button" onclick="withdraw(10)">$10</button>
@@ -179,8 +179,24 @@
 
                     <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
                 </form>
+            </div>*@
+
+            <div class="input-group">
+                
+                <input type="hidden" id="withdrawAmount" name="amount" value="" />
+
+                <button type="button" onclick="withdraw(10)" id="10">$10</button>
+                <button type="button" onclick="withdraw(20)" id="20">$20</button>
+                <button type="button" onclick="withdraw(50)" id="50">$50</button>
+                <button type="button" onclick="withdraw(100)" id="100">$100</button>
+
+                <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
+              
             </div>
-            <a type="button" asp-controller="Home" asp-action="WithdrawOA">Other Amounts</a>
+
+            <a type="button" asp-controller="Vr" asp-action="WithdrawOA">Other Amounts</a>
+
+            <div id="message">Withdraw amount will be displayed here</div>
 
             <div class="message" id="withdrawmessage">
                 @if (TempData["WSuccessMsg"] != null)
@@ -231,11 +247,12 @@
         }
 
         function withdraw(amount) {
-            var withdrawForm = document.getElementById("withdrawForm");
-            var messageDiv = document.getElementById("withdrawmessage");
+            // Update the hidden input field
+            document.getElementById('withdrawAmount').value = amount;
 
             // Display "Currently Withdrawing..." message with animated dots
             var dots = 0;
+            var messageDiv = document.getElementById('message');
             var dotAnimation = setInterval(function () {
                 messageDiv.innerHTML = "Currently Withdrawing" + ".".repeat(dots);
                 dots = (dots + 1) % 4; // 4 is the number of dots, adjust as needed
@@ -247,15 +264,11 @@
                 // Display "Successful Withdrawal" message
                 messageDiv.innerHTML = "Successful Withdrawal";
 
-                // Delay for another 3 seconds
-                setTimeout(function () {
-                    // Set the withdrawal amount
-                    document.getElementById('withdrawAmount').value = amount;
-                    // Submit the withdrawal form
-                    withdrawForm.submit();
-                }, 3000);
-            }, 3000);
+                // Redirect to the feedback page after a successful withdrawal
+                window.location.href = 'feedback.html'; // Replace 'feedback.html' with the actual URL of your feedback page
+            }, 3000); // 3000 milliseconds = 3 seconds
         }
+
 
         // JavaScript to show the message div if there's a message
         window.onload = function () {
