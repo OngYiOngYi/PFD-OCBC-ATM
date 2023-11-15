@@ -1,0 +1,41 @@
+﻿@{
+	ViewData["Title"] = "Welcome";
+}
+
+<style>
+    body {
+        font-family: 'Comfortaa', sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align:center;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        opacity: 0; /* Set initial opacity to 0 */
+        animation: fadeIn 1s ease-in-out forwards; /* Use CSS animation to fade in */
+    }
+
+    .main{
+        margin-top:18%;
+        cursor:pointer;
+    }
+</style>
+
+<body onclick="redirectToAnotherPage()">
+    <div class="main">
+        <h1>Selamat datang ke bank OCBC klik mana-mana sahaja untuk bermula</h1>
+        <img src="~/images/ocbc logo with words.png" style="max-width: 500px; height: auto;" alt="Logo">
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('.main').animate({ opacity: 1 }, 1000); // Adjust the duration as needed
+    });
+
+    function redirectToAnotherPage() {
+        // Change the URL to the desired destination
+        window.location.href = '/Home/Index';
+    }
+</script>
+

@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Withdraw";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -13,8 +14,21 @@
             font-family: 'Comfortaa', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            overflow:hidden;
+            background-color: white;
+            z-index:-5;
+        }
+
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40%;
+            height: 100%;
+            z-index: -4; /* Set a negative z-index to position it behind the content */
+            margin-left: 60%;
+            background-color: blue;
+            opacity: 0.1;
+            background: linear-gradient(135deg, #4d4d4d55 25%, transparent 25%) -40px 0/ 80px 80px, linear-gradient(225deg, #4d4d4d 25%, transparent 25%) -40px 0/ 80px 80px, linear-gradient(315deg, #4d4d4d55 25%, transparent 25%) 0px 0/ 80px 80px, linear-gradient(45deg, #4d4d4d 25%, #e5e5f7 25%) 0px 0/ 80px 80px;
         }
 
         .seperation {
@@ -32,7 +46,7 @@
             justify-content: center;
             background-color:white;
             height: 100%; /* Updated to 100% to cover the full height of the container */
-            width: 75%;
+            width: 60%;
         }
 
         .right-side {
@@ -50,7 +64,7 @@
 
         .withdrawtext {
             text-align: center;
-            margin: 20px 0;
+            margin: 0% 30% 0% 0%;
             font-size: 18px;
             color: #555;
         }
@@ -145,7 +159,14 @@
             height: 220px;
             margin: 0px 20px 0 20px;
             background-color: #ccc; /* Set your desired background color */
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
             margin: 15px; /* Add some spacing between the boxes */
+        }
+        .box:hover{
+            cursor:pointer;
         }
 
 
@@ -154,18 +175,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
 </head>
 <body>
-
+    <div class="background-container"> </div>
+    <div class="toplayers">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Welcome">Home</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Malay" asp-action="Withdraw">Malay</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Chinese" asp-action="Withdraw">Chinese</a>
+    </div>
     <div class="seperation">
-        <div class="mains">
-            <div class="toplayers">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
-            </div>
+        <div class="mains">       
             <header>
-                <h1 class="withdraw">Withdraw</h1>
+                <h1 class="withdraw">Hello <span>@TempData["LoggedInUser"]</span>!</h1>
+                <p>What would you like to do today?</p>
             </header>
 
             <div class="withdrawtext">
-                Please choose an amount to withdraw...
+                Get Cash
             </div>
 
             <div class="input-group">
@@ -203,8 +227,8 @@
                 <p style="margin-right:130px;"><b>Other Services</b></p>
             </div>
             <div class="top-boxes">
-                <div class="box"></div>
-                <div class="box"></div>
+                <div class="box">Ask About Balance</div>
+                <div class="box">Transfer Funds</div>
             </div>
             <div>
                 <a href="#" style="margin-left:130px">More Services ></a>
@@ -213,6 +237,7 @@
 
     </div>
 
+    
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             fadeIn(document.querySelector(".seperations"));
@@ -237,7 +262,7 @@
             // Display "Currently Withdrawing..." message with animated dots
             var dots = 0;
             var dotAnimation = setInterval(function () {
-                messageDiv.innerHTML = "Currently Withdrawing" + ".".repeat(dots);
+                messageDiv.innerHTML = "We are preparing your cash" + ".".repeat(dots);
                 dots = (dots + 1) % 4; // 4 is the number of dots, adjust as needed
             }, 200); // Adjust the interval as needed
 
@@ -254,7 +279,7 @@
                     // Submit the withdrawal form
                     withdrawForm.submit();
                 }, 3000);
-            }, 3000);
+            }, 5000);
         }
 
         // JavaScript to show the message div if there's a message

@@ -8,12 +8,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <style>
+    <style> 
         body {
             font-family: 'Comfortaa', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4; /* Add a background color for better visibility */
         }
 
         .button-containerers {
@@ -50,16 +49,25 @@
             text-align: center;
             opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
         }
+        .mains{
+            margin-top:5%;
+
+        }
     </style>
 </head>
 <body>
+    <div class="toplayers">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+    </div>
     <div class="mains">
         <div class="welcomezz">
-            Selamat Datang: @TempData["LoggedInUser"]
+            Welcome: @TempData["LoggedInUser"]
+            <br />
+            What would you like to do Today?
         </div>
         <div class="button-containerers">
-            <a asp-area="" asp-controller="Malay" asp-action="Withdraw" class="wdbuttonss">Keluarkan</a>
-            <a asp-area="" asp-controller="Malay" asp-action="Deposit" class="wdbuttonss">Deposit</a>
+            <a asp-area="" asp-controller="Home" asp-action="Withdraw" class="wdbuttonss">Withdraw</a>
+            <a asp-area="" asp-controller="Home" asp-action="Deposit" class="wdbuttonss">Deposit</a>
         </div>
     </div>
 

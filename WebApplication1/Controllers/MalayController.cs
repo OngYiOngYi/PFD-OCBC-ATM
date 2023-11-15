@@ -7,7 +7,7 @@ using WebApplication1.DAL;
 
 namespace WebApplication1.Controllers
 {
-    public class MalayController : Controller
+    public class HomeController : Controller
     {
 
         private UserDAL userContext = new UserDAL();
@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
 			new User { AccountID = 100, Name="Itsuki Nakano", AccountNumber="12345678", Password="123456",Amount=10000 },
 		};
 
-		public MalayController()
+		public HomeController()
         {
 
         }
@@ -53,7 +53,7 @@ namespace WebApplication1.Controllers
                 {
                     TempData["LoggedInUSer"] = user.Name;
                     HttpContext.Session.SetInt32("UserID", user.AccountID);
-                    return RedirectToAction("Home", "Malay");
+                    return RedirectToAction("Withdraw", "Home");
                 }
             }
             return RedirectToAction("Index");
@@ -199,6 +199,11 @@ namespace WebApplication1.Controllers
         }
 
         public IActionResult PinLogin()
+        {
+            return View();
+        }
+
+        public IActionResult Welcome()
         {
             return View();
         }

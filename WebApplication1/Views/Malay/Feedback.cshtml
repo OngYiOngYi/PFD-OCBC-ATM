@@ -16,12 +16,13 @@
             background-color: #f4f4f4;
         }
 
+
         .mains {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: 10%;
+            margin-top: 15%;
             opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
             transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
         }
@@ -30,7 +31,7 @@
             justify-items: center;
             justify-content: center;
             text-align: center;
-            color: #ddd;
+            color: darkgray;
         }
 
         .rating i {
@@ -88,7 +89,7 @@
         <br />
         <br />
         <div>
-            <a asp-area="" asp-controller="Malay" asp-action="Index" class="mmbutton">Langkau</a>
+            <a asp-area="" asp-controller="Home" asp-action="Welcome" class="mmbutton">Langkau</a>
         </div>
     </div>
 
@@ -148,7 +149,7 @@
                 } else if (currentRating >= 4) {
                     showMessage("Terima kasih atas maklum balas!", 3000);
                     setTimeout(function () {
-                        window.location.href = 'Index';
+                        window.location.href = '/Home/Welcome';
                     }, 3000);
                 }
             });
@@ -162,6 +163,9 @@
                 }
             });
         });
+        setTimeout(function () {
+            window.location.href = '/Home/Welcome'; // Replace 'index.html' with the actual URL of your index page
+        }, 10000); // 7 seconds = 7000 milliseconds
     </script>
 </body>
 </html>

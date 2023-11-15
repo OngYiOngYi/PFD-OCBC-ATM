@@ -74,6 +74,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-o52IQ2OqBE5s1OMWg5jz4q3p1HIK9pX8z9e/JQ6aDkFAqSYBpe0bMHtaHKtA4bFb" crossorigin="anonymous">
 </head>
 <body>
+    <div class="toplayers">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Malay" asp-action="Feedback">Malay</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Chinese" asp-action="Feedback">Chinese</a>
+    </div>
     <div class="mains">
         <span>Please give us a review for our bank services!</span>
         <br />
@@ -89,7 +94,7 @@
         <br />
         <br />
         <div>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="mmbutton">Skip</a>
+            <a asp-area="" asp-controller="Home" asp-action="Welcome" class="mmbutton">Skip</a>
         </div>
     </div>
 
@@ -149,7 +154,7 @@
                 } else if (currentRating >= 4) {
                     showMessage("Thank you for the feedback!", 3000);
                     setTimeout(function () {
-                        window.location.href = 'Index';
+                        window.location.href = 'Welcome';
                     }, 3000);
                 }
             });
@@ -164,8 +169,8 @@
             });
         });
         setTimeout(function () {
-            window.location.href = 'Index'; // Replace 'index.html' with the actual URL of your index page
-        }, 5000); // 7 seconds = 7000 milliseconds
+            window.location.href = 'Welcome'; // Replace 'index.html' with the actual URL of your index page
+        }, 10000); // 7 seconds = 7000 milliseconds
     </script>
 </body>
 </html>
