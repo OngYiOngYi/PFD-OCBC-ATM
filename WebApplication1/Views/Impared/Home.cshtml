@@ -8,6 +8,8 @@
     <title>Home</title>
     <style>
         .button-containerers {
+            position:relative;
+            top:130px;
             font-family: 'Comfortaa', sans-serif;
             display: flex;
             justify-content: space-between; /* Distribute items evenly along the main axis */
@@ -31,14 +33,21 @@
         }
 
         .welcomezz {
+            position:relative;
+            top:100px;
             font-family: 'Comfortaa', sans-serif;
             margin: 0;
             font-size: 24px;
             text-align: left; 
         }
+
+
     </style>
 </head>
     <body>
+        
+    <div class="easein">
+        <div class="mains">
         <div class="welcomezz">
             Welcome: @TempData["LoggedInUser"]
         </div>
@@ -48,6 +57,8 @@
         <div class="button-containerers">
             <a asp-area="" asp-controller="Impared" asp-action="Withdraw" class="wdbuttonss">Withdraw</a>
             <a asp-area="" asp-controller="Impared" asp-action="Deposit" class="wdbuttonss">Deposit</a>
+        </div>
+        </div>
         </div>
     </body>
 </html>

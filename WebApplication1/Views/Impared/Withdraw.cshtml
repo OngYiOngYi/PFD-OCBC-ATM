@@ -59,6 +59,8 @@
             font-family: 'Comfortaa', sans-serif;
         }
         .mains{
+            position:relative;
+            top:150px;
             display:flex;
             flex-direction:column;
             align-items:center;  
@@ -71,6 +73,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
 </head>
 <body>
+    <div class="easein">
     <div class="mains">
         <header>
             <h1 class="withdraw">Withdraw</h1>
@@ -94,7 +97,6 @@
                     <button type="submit" onclick="simulateWithdraw()" class="btn btn-submit">Submit</button>
                 </div>
             </form>
-
             @*<form id="withdrawForm" asp-controller="Impared" asp-action="WithdrawAmount" method="post" onsubmit="return submitForm()">
                 <textarea asp-for="Amount" id="result" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required></textarea>
                 <button id="start">Start</button>
@@ -111,6 +113,7 @@
         <div class="message" id="withdrawmessage">
             <!-- Your success and error message display here -->
         </div>
+    </div>
     </div>
 
     <script type="text/javascript">
