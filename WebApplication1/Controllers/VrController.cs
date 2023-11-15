@@ -58,11 +58,40 @@ namespace WebApplication1.Controllers
             return View();
 		}
 
+        //      [HttpPost]
+        //      public IActionResult WithdrawAmount()
+        //      {
+        //          return RedirectToAction("Feedback","Vr");
+        //}
+
         [HttpPost]
-        public IActionResult WithdrawAmount()
+        public async Task<IActionResult> WithdrawAmount(int amount)
         {
-            return RedirectToAction("Feedback","Vr");
-		}
+            try
+            {
+                // Here, you might implement the logic to handle the withdrawal of the specified amount.
+                // For demonstration purposes, this is just a placeholder.
+
+                // Your withdrawal logic goes here...
+
+                // For demonstration, I'll simulate a delay using Task.Delay.
+                await Task.Delay(2000); // Simulating a 2-second delay.
+
+                // After the withdrawal process (simulated delay), you might set a success message.
+                TempData["WSuccessMsg"] = $"Successfully withdrew ${amount}";
+
+                // Redirect back to the withdrawal page or another appropriate action/view
+                return RedirectToAction("Feedback", "Vr"); // Redirect to the Home/Index page after withdrawal.
+            }
+            catch (Exception ex)
+            {
+                // In case of an error during withdrawal, set an error message.
+                TempData["WErrorMsg"] = $"Error occurred while withdrawing ${amount}: {ex.Message}";
+
+                // Redirect back to the withdrawal page or another appropriate action/view
+                return RedirectToAction("Index", "Home"); // Redirect to the Home/Index page after an error.
+            }
+        }
         public IActionResult WithdrawAmountOA(decimal Amount)
         {
             return View();

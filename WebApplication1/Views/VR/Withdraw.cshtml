@@ -148,7 +148,13 @@
             margin: 15px; /* Add some spacing between the boxes */
         }
 
-
+        .input-group form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, auto); /* Added to create a 2x2 grid */
+            grid-gap: 10px; /* Adjust the gap as needed */
+            margin-top: 10px;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
@@ -182,21 +188,19 @@
             </div>*@
 
             <div class="input-group">
+                <form>
+                    <button type="button" data-amount="10">$10</button>
+                    <button type="button" data-amount="20">$20</button>
+                    <button type="button" data-amount="50">$50</button>
+                    <button type="button" data-amount="100">$100</button>
+                    <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
+                </form>
                 
-                <input type="hidden" id="withdrawAmount" name="amount" value="" />
-
-                <button type="button" onclick="withdraw(10)" id="10">$10</button>
-                <button type="button" onclick="withdraw(20)" id="20">$20</button>
-                <button type="button" onclick="withdraw(50)" id="50">$50</button>
-                <button type="button" onclick="withdraw(100)" id="100">$100</button>
-
-                <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
-              
             </div>
 
             <a type="button" asp-controller="Vr" asp-action="WithdrawOA">Other Amounts</a>
 
-            <div id="message">Withdraw amount will be displayed here</div>
+            <p id="withdrawal-message" style="display: none;"></p>
 
             <div class="message" id="withdrawmessage">
                 @if (TempData["WSuccessMsg"] != null)
@@ -246,28 +250,44 @@
             }, 10);
         }
 
-        function withdraw(amount) {
-            // Update the hidden input field
-            document.getElementById('withdrawAmount').value = amount;
+        const buttons = document.querySelectorAll('.input-group button');
 
-            // Display "Currently Withdrawing..." message with animated dots
-            var dots = 0;
-            var messageDiv = document.getElementById('message');
-            var dotAnimation = setInterval(function () {
-                messageDiv.innerHTML = "Currently Withdrawing" + ".".repeat(dots);
+        function displayWithdrawalMessage(amount) {
+            const messageElement = document.getElementById('withdrawal-message');
+            messageElement.textContent = `Currently Withdrawing $${amount}...`;
+            messageElement.style.display = 'block';
+
+            let dots = 0;
+            const dotAnimation = setInterval(function () {
+                messageElement.textContent = `Currently Withdrawing $${amount}` + ".".repeat(dots);
                 dots = (dots + 1) % 4; // 4 is the number of dots, adjust as needed
             }, 200); // Adjust the interval as needed
 
-            // Delay for 3 seconds
-            setTimeout(function () {
-                clearInterval(dotAnimation); // Stop the dot animation
-                // Display "Successful Withdrawal" message
-                messageDiv.innerHTML = "Successful Withdrawal";
+            // Create an HTML element to display the amount
+            const amountDisplay = document.createElement('p');
+            amountDisplay.textContent = `Amount: $${amount}`;
+            messageElement.appendChild(amountDisplay);
 
-                // Redirect to the feedback page after a successful withdrawal
-                window.location.href = 'feedback.html'; // Replace 'feedback.html' with the actual URL of your feedback page
+            setTimeout(function () {
+                clearInterval(dotAnimation);
+                messageElement.textContent = `Successful Withdrawal of $${amount}`;
+                // You can perform additional actions here after successful withdrawal
+
+                // For demonstration purposes, redirecting to a feedback page after 2 seconds
+                setTimeout(function () {
+                    window.location.href = 'Feedback'; // Replace 'feedback.html' with the actual URL of your feedback page
+                }, 2000); // 2000 milliseconds = 2 seconds
             }, 3000); // 3000 milliseconds = 3 seconds
         }
+
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                const amount = this.textContent.substring(1);
+                displayWithdrawalMessage(amount);
+            });
+        });
+
 
 
         // JavaScript to show the message div if there's a message
