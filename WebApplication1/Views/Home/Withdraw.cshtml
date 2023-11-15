@@ -16,15 +16,34 @@
             background-color: #f4f4f4;
         }
 
+        .seperation {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch; /* Updated to stretch the items to the full height of the container */
+            justify-content: space-between; /* Added to separate the left and right sides */
+            height: 60vh; /* Updated to 100vh to cover the full height of the viewport */
+            width:100%;
+        }
+
         .mains {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 60vh;
-            margin: 0;
-            opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
-            transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
+            background-color:white;
+            height: 105%; /* Updated to 100% to cover the full height of the container */
+            width: 100%;
+            margin:0;
+            padding:50px 0 50px 0;
+        }
+
+        .right-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* Updated to 100% to cover the full height of the container */
+            width: 30%;
         }
 
         header {
@@ -105,53 +124,96 @@
             background-color: #e74c3c;
             color: #fff;
         }
+        .right-side{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            margin: 0;
+            width: 50%;
+        }
+
+        .right-side > div {
+            margin: 10px;
+        }
+
+        .top-boxes {
+            display: flex;
+        }
+
+        .box {
+            border-radius:5px;
+            width: 120px;
+            height: 220px;
+            margin: 0px 20px 0 20px;
+            background-color: #ccc; /* Set your desired background color */
+            margin-right: 10px; /* Add some spacing between the boxes */
+        }
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
 </head>
 <body>
-    <div class="mains">
-        <header>
-            <h1 class="withdraw">Withdraw</h1>
-        </header>
+    <div class="seperation">
+        <div class="mains">
+            <header>
+                <h1 class="withdraw">Withdraw</h1>
+            </header>
 
-        <div class="withdrawtext">
-            Please choose an amount to withdraw...
+            <div class="withdrawtext">
+                Please choose an amount to withdraw...
+            </div>
+
+            <div class="input-group">
+                <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Home" method="post">
+                    <input type="hidden" id="withdrawAmount" name="amount" value="" />
+
+                    <button type="button" onclick="withdraw(10)">$10</button>
+                    <button type="button" onclick="withdraw(20)">$20</button>
+                    <button type="button" onclick="withdraw(50)">$50</button>
+                    <button type="button" onclick="withdraw(100)">$100</button>
+
+                    <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
+                </form>
+            </div>
+            <a type="button" asp-controller="Home" asp-action="WithdrawOA">Other Amounts</a>
+
+            <div class="message" id="withdrawmessage">
+                @if (TempData["WSuccessMsg"] != null)
+                {
+                    <div class="success-message">
+                        @TempData["WSuccessMsg"]
+                    </div>
+                }
+
+                @if (TempData["WErrorMsg"] != null)
+                {
+                    <div class="error-message">
+                        @TempData["WErrorMsg"]
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="right-side">
+            <div>
+                <p style="margin-right:130px;"><b>Other Services</b></p>
+            </div>
+            <div class="top-boxes">
+                <div class="box"></div>
+                <div class="box"></div>
+            </div>
+            <div>
+                <a href="#" style="margin-left:130px">More Services ></a>
+            </div>
         </div>
 
-        <div class="input-group">
-            <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Home" method="post">
-                <input type="hidden" id="withdrawAmount" name="amount" value="" />
-
-                <button type="button" onclick="withdraw(10)">$10</button>
-                <button type="button" onclick="withdraw(20)">$20</button>
-                <button type="button" onclick="withdraw(50)">$50</button>
-                <button type="button" onclick="withdraw(100)">$100</button>
-
-                <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
-            </form>
-        </div>
-        <a type="button" asp-controller="Home" asp-action="WithdrawOA">Other Amounts</a>
-
-        <div class="message" id="withdrawmessage">
-            @if (TempData["WSuccessMsg"] != null)
-            {
-                <div class="success-message">
-                    @TempData["WSuccessMsg"]
-                </div>
-            }
-
-            @if (TempData["WErrorMsg"] != null)
-            {
-                <div class="error-message">
-                    @TempData["WErrorMsg"]
-                </div>
-            }
-        </div>
     </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            fadeIn(document.querySelector(".mains"));
+            fadeIn(document.querySelector(".seperations"));
         });
 
         function fadeIn(element) {
