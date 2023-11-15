@@ -6,9 +6,32 @@
 <html>
 <head>
     <title>Eye Scan</title>
+    <script defer src="~/js/face-api.min.js"></script>
+    <script defer src="~/js/script.js"></script>
+    <style>
+        .a{
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas{
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
-    <video id="videoElement" autoplay></video>
+
+    <div class="a">
+        <video id="video" width="720" height="560" autoplay muted></video>
+    </div>
+    
+
+    @*<video id="videoElement" autoplay></video>
 
     <script>
         navigator.mediaDevices.getUserMedia({ video: true })
@@ -17,12 +40,14 @@
                 video.srcObject = stream;
 
                 setTimeout(function () {
-                    window.location.href = '@Url.Action("Chinese", "Home")';
+                    window.location.href = '@Url.Action("Home", "Home")';
                 }, 5000); // Redirect after 5 seconds (5000 milliseconds)
             })
             .catch(function (err) {
                 console.log('Error accessing the camera: ' + err);
             });
-    </script>
+    </script>*@
+
+
 </body>
 </html>

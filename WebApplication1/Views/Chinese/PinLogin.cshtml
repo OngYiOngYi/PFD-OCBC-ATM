@@ -3,88 +3,121 @@
 	ViewData["Title"] = "Login";
 }
 
-<html>
-<header>
-	<title>Login</title>
-	<style>
-		.login-container {
-			background-color: #fff;
-			padding: 20px;
-			border-radius: 5px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-			font-family: 'Comfortaa', sans-serif;
-			width: 40%;
-			text-align: center;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			margin-left: 30%;
-		}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
 
-		.login-form {
-			display: flex;
-			flex-direction: column;
-			max-width: 250px;
-		}
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 40%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content:center;
+            margin:auto;
+            opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
+            transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
+        }
 
-		label {
-			margin-bottom: 6px;
-		}
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 250px;
+        }
 
-		input {
-			padding: 8px;
-			margin-bottom: 10px;
-			border-radius: 4px;
-			border: 1px solid #ccc;
-		}
+        label {
+            margin-bottom: 6px;
+        }
 
-		button {
-			padding: 8px 12px;
-			border: none;
-			border-radius: 4px;
-			background-color: #3498db;
-			color: white;
-			cursor: pointer;
-		}
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
 
-			button:hover {
-				background-color: #2980b9;
-			}
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: #900d09;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-		#message {
-			margin-top: 10px;
-			color: #c0392b;
-			font-style: italic;
-			font-size: 14px;
-		}
+        .btn:hover {
+            background-color: #bc544b; /* Change the background color on hover */
+            color: white;
+            transform: scale(1.1); /* Add a scaling effect on hover */
+        }
 
-		.spacerers {
-			margin-top: 10%;
-		}
-	</style>
-</header>
+        #message {
+            margin-top: 10px;
+            color: #c0392b;
+            font-style: italic;
+            font-size: 14px;
+        }
 
+        .spacerers {
+            margin-top: 10%;
+        }
+    </style>
+</head>
 <body>
-	<div class="login-container">
-		<div class="container mt-5">
-			<h2>登入</h2>
-			@if (ViewBag.ErrorMessage != null)
-			{
-				<p class="text-danger">@ViewBag.ErrorMessage</p>
-			}
-			<span>
-				请插入您的 <span style="color:red">卡片</span> 并输入您的密码
-			</span>
+    <div class="login-container">
+        <div class="container mt-5">
+            <h2>登录</h2>
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <p class="text-danger">@ViewBag.ErrorMessage</p>
+            }
+            <span>请插入您的 <span style="color:red">卡</span> 并输入您的密码</span>
+            <br />
+            <form asp-action="Login" asp-controller="Chinese" class="spacerers" method="post">
+                <div class="form-group">
+                    <label asp-for="Password">
+                        输入您的密码
+                    </label>
+                    <input asp-for="Password" type="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary adding">
+                    登录
+                </button>
+            </form>
+        </div>
+    </div>
 
-			<br />
-			<form asp-action="Login" asp-controller="Chinese" class="spacerers" method="post">
-				<div class="form-group">
-					<label asp-for="Password">输入您的密码</label>
-					<input asp-for="Password" type="password" class="form-control" required>
-				</div>
-				<button type="submit" class="btn btn-primary">Login</button>
-			</form>
-		</div>
-	</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fadeIn(document.querySelector(".login-container"));
+        });
+
+        function fadeIn(element) {
+            var opacity = 0;
+            var interval = setInterval(function () {
+                if (opacity < 1) {
+                    opacity += 0.05;
+                    element.style.opacity = opacity;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 10);
+        }
+    </script>
 </body>
 </html>

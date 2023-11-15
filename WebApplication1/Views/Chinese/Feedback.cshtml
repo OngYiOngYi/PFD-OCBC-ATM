@@ -3,92 +3,167 @@
 }
 
 <!DOCTYPE html>
-<html>
-	<header>
-		<title>Feedback</title>
-		<style>
-			.rating {
-				padding: 20%;
-				justify-items: center;
-				justify-content: center;
-				text-align: center;
-				color: #ddd; /* Default color for unfilled stars */
-			}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
 
-			.rating i {
-				font-size: 500%;
-				cursor: pointer;
-			}
+        .mains {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10%;
+            opacity: 0; /* Set initial opacity to 0 for the fade-in effect */
+            transition: opacity 0.5s ease-in-out; /* Added a transition for fade-in effect */
+        }
 
-			.rating i.filled {
-				color: #FFD700; /* Color for filled stars */
-			}
+        .rating {
+            justify-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ddd;
+        }
 
-			.rating i.filled {
-				color: #FFD700; /* Color for filled stars */
-			}
-	</style>
+        .rating i {
+            font-size: 450%;
+            cursor: pointer;
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-	</header>
+        .rating i.filled {
+            color: gold;
+            transform: scale(1.1); /* Add a scaling effect on hover */
+        }
 
-	<body>
+        .mmbutton {
+            padding: 10px 30px;
+            margin: 10px;
+            border: 2px solid #900d09;
+            background-color: #900d09;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
 
-		<div>
-			请为您的体验打分
-		</div>
+        .mmbutton:hover {
+            background-color: #bc544b; /* Change the background color on hover */
+            color: white;
+            transform: scale(1.1); /* Add a scaling effect on hover */
+        }
 
-		<div class="rating">
-			<input type="hidden" id="rating-value" name="rating" value="0" />
-			<i class="fa-solid fa-star" data-index="1"></i>
-			<i class="fa-solid fa-star" data-index="2"></i>
-			<i class="fa-solid fa-star" data-index="3"></i>
-			<i class="fa-solid fa-star" data-index="4"></i>
-			<i class="fa-solid fa-star" data-index="5"></i>
-		</div>
+        #completedReview {
+            display: none;
+            margin-top: 2%;
+            font-size: 20px;
+            color: green;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-o52IQ2OqBE5s1OMWg5jz4q3p1HIK9pX8z9e/JQ6aDkFAqSYBpe0bMHtaHKtA4bFb" crossorigin="anonymous">
+</head>
+<body>
+    <div class="mains">
+        <span>
+            请对我们的银行服务进行评价！
+        </span>
+        <br />
+        <div class="rating">
+            <input type="hidden" id="rating-value" name="rating" value="0" />
+            <i class="fa-solid fa-star" data-index="1"></i>
+            <i class="fa-solid fa-star" data-index="2"></i>
+            <i class="fa-solid fa-star" data-index="3"></i>
+            <i class="fa-solid fa-star" data-index="4"></i>
+            <i class="fa-solid fa-star" data-index="5"></i>
+        </div>
+        <div id="completedReview"></div>
+        <br />
+        <br />
+        <div>
+            <a asp-area="" asp-controller="Chinese" asp-action="Index" class="mmbutton">跳过</a>
+        </div>
+    </div>
 
-		@*<div>
-			<button id="skip">Skip</button>
-		</div>*@
-	</body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fadeIn(document.querySelector(".mains"));
+        });
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(document).ready(function () {
-			let currentRating = 0;
+        function fadeIn(element) {
+            var opacity = 0;
+            var interval = setInterval(function () {
+                if (opacity < 1) {
+                    opacity += 0.05;
+                    element.style.opacity = opacity;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 10);
+        }
 
-			// Change color on hover and fill previous stars
-			$('.rating i').hover(function () {
-				let index = $(this).data('index');
+        function showMessage(message, duration) {
+            var messageDiv = $('#completedReview');
+            messageDiv.html(message);
 
-				$('.rating i').removeClass('filled'); // Reset all stars
+            // Show the message div with fade-in effect
+            messageDiv.fadeIn();
 
-				for (let i = 1; i <= index; i++) {
-					$('.rating i[data-index="' + i + '"]').addClass('filled');
-				}
-			});
+            // Delay for the specified duration
+            setTimeout(function () {
+                // Hide the message div after the delay
+                messageDiv.fadeOut();
+            }, duration);
+        }
 
-			$('.rating i').click(function () {
-				let index = $(this).data('index');
-				currentRating = index;
-				$('#rating-value').val(index); // Set the selected value in the hidden input field
+        $(document).ready(function () {
+            let currentRating = 0;
 
-				if (currentRating < 4) {
-					window.location.href = "FeedbackReview"; // Redirect to feedbackreview page
-				}
-				else if (currentRating >4)
-				{
-					window.location.href = 'Index';
-				}
-			});
+            // Change color on hover and fill previous stars
+            $('.rating i').hover(function () {
+                let index = $(this).data('index');
 
-			// On mouseout, revert stars to the current selected rating
-			$('.rating').mouseout(function () {
-				$('.rating i').removeClass('filled');
+                $('.rating i').removeClass('filled');
 
-				for (let i = 1; i <= currentRating; i++) {
-					$('.rating i[data-index="' + i + '"]').addClass('filled');
-				}
-			});
-		});
-	</script>
+                for (let i = 1; i <= index; i++) {
+                    $('.rating i[data-index="' + i + '"]').addClass('filled');
+                }
+            });
+
+            $('.rating i').click(function () {
+                let index = $(this).data('index');
+                currentRating = index;
+                $('#rating-value').val(index);
+
+                if (currentRating < 4) {
+                    window.location.href = "FeedbackReview";
+                } else if (currentRating >= 4) {
+                    showMessage("感谢您的反馈！", 3000);
+                    setTimeout(function () {
+                        window.location.href = 'Index';
+                    }, 3000);
+                }
+            });
+
+            // On mouseout, revert stars to the current selected rating
+            $('.rating').mouseout(function () {
+                $('.rating i').removeClass('filled');
+
+                for (let i = 1; i <= currentRating; i++) {
+                    $('.rating i[data-index="' + i + '"]').addClass('filled');
+                }
+            });
+        });
+    </script>
+</body>
 </html>
