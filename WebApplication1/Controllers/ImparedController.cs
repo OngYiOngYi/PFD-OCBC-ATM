@@ -94,9 +94,10 @@ namespace WebApplication1.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
-        public IActionResult WithdrawAmount(int amount)
+        public IActionResult WithdrawAmount(string amount)
         {
             return RedirectToAction("Index", "Home");
+            //return View();
         }
 
         public IActionResult Feedback()

@@ -97,92 +97,124 @@
                     <button type="submit" onclick="simulateWithdraw()" class="btn btn-submit">Submit</button>
                 </div>
             </form>
-            @*<form id="withdrawForm" asp-controller="Impared" asp-action="WithdrawAmount" method="post" onsubmit="return submitForm()">
-                <textarea asp-for="Amount" id="result" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required></textarea>
-                <button id="start">Start</button>
-                <button id="stop">Stop</button>
-                <button type="submit" onclick="simulateWithdraw()">Submit</button>
-            </form>
-
-            <textarea id="result" rows="5" cols="80"></textarea> <br>
-            <button id="start">Start</button>
-            <button id="stop">Stop</button>
-            <button id="submit">Submit</button>*@
         </div>
 
         <div class="message" id="withdrawmessage">
             <!-- Your success and error message display here -->
         </div>
+
+            <div class="hidden-elements" style="display: none;">
+                <!-- Hidden elements -->
+                <div class="hidden-div">
+                    Do you want to withdraw the amount?
+                </div>
+            </div>
+        </div>
     </div>
     </div>
 
     <script type="text/javascript">
-        var startButton = document.getElementById('start');
-        var stopButton = document.getElementById('stop');
-        var resultElement = document.getElementById('result');
+        // Check if webkitSpeechRecognition is available
+        if ('webkitSpeechRecognition' in window) {
+            var startButton = document.getElementById('start');
+            var stopButton = document.getElementById('stop');
+            var resultElement = document.getElementById('result');
+            var recognition = new webkitSpeechRecognition();
 
-        var recognition = new webkitSpeechRecognition();
+            // Set properties
+            recognition.lang = window.navigator.language;
+            recognition.interimResults = true;
 
-        recognition.lang = window.navigator.language;
-        recognition.interimResults = true;
-
-        startButton.addEventListener('click', () => { recognition.start(); });
-        stopButton.addEventListener('click', () => { recognition.stop(); });
-
-        recognition.addEventListener('result', (event) => {
-            const result = event.results[event.results.length - 1][0].transcript;
-            resultElement.textContent = result;
-        });
-    </script>
-
-   @* <script>
-        function withdraw(amount) {
-            var withdrawForm = document.getElementById("withdrawForm");
-            var messageDiv = document.getElementById("withdrawmessage");
-
-            // Display "Currently Withdrawing..." message with animated dots
-            var dots = 0;
-            var dotAnimation = setInterval(function () {
-                messageDiv.innerHTML = "Currently Withdrawing" + ".".repeat(dots);
-                dots = (dots + 1) % 4; // 4 is the number of dots, adjust as needed
-            }, 200); // Adjust the interval as needed
-
-            // Delay for 3 seconds
-            setTimeout(function () {
-                clearInterval(dotAnimation); // Stop the dot animation
-                // Display "Successful Withdrawal" message
-                messageDiv.innerHTML = "Successful Withdrawal";
-
-                // Delay for another 3 seconds
-                setTimeout(function () {
-                    // Set the withdrawal amount
-                    document.getElementById('withdrawAmount').value = amount;
-                    // Submit the withdrawal form
-                    withdrawForm.submit();
-                }, 3000);
-            }, 3000);
-        }
-
-        // JavaScript to show the message div if there's a message
-        window.onload = function () {
-            var messageDiv = document.getElementById("withdrawmessage");
-            if (messageDiv.innerHTML.trim() !== '') {
-                messageDiv.style.display = "block"; // Show the message if it's not empty
-            }
-        };
-
-        window.addEventListener('beforeunload', function (e) {
-            // Clear TempData when leaving the page
-        @if (TempData["WSuccessMsg"] != null)
-        {
-            TempData["WSuccessMsg"] = null;
-        }
-        @if (TempData["WErrorMsg"] != null)
-        {
-            TempData["WErrorMsg"] = null;
-        }
+            // Event listeners
+            startButton.addEventListener('click', () => {
+                recognition.start();
+                resultElement.textContent = '';
             });
-    </script>*@
+
+            stopButton.addEventListener('click', () => {
+                recognition.stop();
+            });
+
+            recognition.addEventListener('result', (event) => {
+                let finalTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    }
+                }
+                resultElement.textContent = finalTranscript.trim();
+                checkIfNumber(finalTranscript);
+            });
+
+            function checkIfNumber(input) {
+                // Remove special characters using regular expression
+                const cleanedInput = input.replace(/[^0-9a-zA-Z.-]/g, '');
+                console.log(cleanedInput);
+                if (!isNaN(cleanedInput)) {
+                    return true; // Returns true if the cleaned input is a number
+                } else {
+                    console.log('Not a valid number'); // CHANGE HERE TO THE TEXT TO SPEECH FOR ISAAC TO DO
+                    return false; // Returns false if the cleaned input is not a number
+                }
+            }
+
+            // Function to confirm withdrawal
+            function confirmWithdraw() {
+                const input = resultElement.value.trim();
+                if (checkIfNumber(input)) {
+                    const withdrawalConfirmed = confirm('Do you want to withdraw ' + input + '?');
+                    if (withdrawalConfirmed) {
+                        // If confirmed, show hidden elements
+                        document.querySelector('.hidden-elements').style.display = 'block';
+                        return true; // Proceed with form submission
+                    } else {
+                        console.log('Withdrawal canceled by user');
+                        return false; // Prevent form submission
+                    }
+                } else {
+                    alert('Please enter a valid number.');
+                    return false; // Prevent form submission
+                }
+            }
+
+            function handleWithdrawalConfirmation() {
+                const input = resultElement.value.trim();
+                if (checkIfNumber(input)) {
+                    const withdrawalConfirmed = confirm('Do you want to withdraw ' + input + '?');
+                    if (withdrawalConfirmed) {
+                        const confirmRedirect = confirm('Are you sure you want to withdraw ' + input + '?');
+                        if (confirmRedirect) {
+                            // Redirect to home page
+                            window.location.href = '/Home'; // Change '/home' to the desired URL
+                        } else {
+                            // Reset the page
+                            location.reload();
+                        }
+                    } else {
+                        // Reset the page
+                        location.reload();
+                    }
+                } else {
+                    alert('Please enter a valid number.');
+                    return false; // Prevent form submission
+                }
+            }
+
+            // Event listener for form submission
+            document.getElementById('withdrawForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Call confirmWithdraw() to handle the submission
+                if (confirmWithdraw()) {
+                    // You can optionally submit the form here if needed
+                    // For example: this.submit();
+                }
+            });
+        } else {
+            // Handle cases where webkitSpeechRecognition is not available
+            console.log('Speech recognition not supported in this browser.');
+        }
+    </script>
 </body>
 </html>
 
