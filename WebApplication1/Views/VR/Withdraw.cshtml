@@ -213,21 +213,8 @@
             </div>
             <a type="button" asp-controller="Vr" asp-action="WithdrawOA">Other Amounts</a>
 
-            <div class="message" id="withdrawmessage">
-                @if (TempData["WSuccessMsg"] != null)
-                {
-                    <div class="success-message">
-                        @TempData["WSuccessMsg"]
-                    </div>
-                }
+            <div class="message" id="withdrawmessage"></div>
 
-                @if (TempData["WErrorMsg"] != null)
-                {
-                    <div class="error-message">
-                        @TempData["WErrorMsg"]
-                    </div>
-                }
-            </div>
         </div>
         <div class="right-side">
             <div>
