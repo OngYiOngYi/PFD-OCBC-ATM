@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Withdraw";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -13,8 +14,22 @@
             font-family: 'Comfortaa', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            overflow:hidden;
+            background-color: white;
+            z-index: -5;
+            overflow: hidden;
+        }
+
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40%;
+            height: 100%;
+            z-index: -4; /* Set a negative z-index to position it behind the content */
+            margin-left: 60%;
+            background-color: blue;
+            opacity: 0.1;
+            background: linear-gradient(135deg, #4d4d4d55 25%, transparent 25%) -40px 0/ 80px 80px, linear-gradient(225deg, #4d4d4d 25%, transparent 25%) -40px 0/ 80px 80px, linear-gradient(315deg, #4d4d4d55 25%, transparent 25%) 0px 0/ 80px 80px, linear-gradient(45deg, #4d4d4d 25%, #e5e5f7 25%) 0px 0/ 80px 80px;
         }
 
         .seperation {
@@ -30,9 +45,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color:white;
+            background-color: white;
             height: 100%; /* Updated to 100% to cover the full height of the container */
-            width: 75%;
+            width: 60%;
         }
 
         .right-side {
@@ -50,7 +65,7 @@
 
         .withdrawtext {
             text-align: center;
-            margin: 20px 0;
+            margin: 0% 30% 0% 0%;
             font-size: 18px;
             color: #555;
         }
@@ -82,11 +97,11 @@
             transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        button[type="button"]:hover {
-            background-color: #bc544b; /* Change the background color on hover */
-            color: white;
-            transform: scale(1.1); /* Add a scaling effect on hover */
-        }
+            button[type="button"]:hover {
+                background-color: #bc544b; /* Change the background color on hover */
+                color: white;
+                transform: scale(1.1); /* Add a scaling effect on hover */
+            }
 
         a[type="button"] {
             padding: 20px 80px;
@@ -101,11 +116,11 @@
             text-decoration: none;
         }
 
-        a[type="button"]:hover {
-            background-color: #bc544b; /* Change the background color on hover */
-            color: white;
-            transform: scale(1.1); /* Add a scaling effect on hover */
-        }
+            a[type="button"]:hover {
+                background-color: #bc544b; /* Change the background color on hover */
+                color: white;
+                transform: scale(1.1); /* Add a scaling effect on hover */
+            }
 
         .message {
             font-family: 'Comfortaa', sans-serif;
@@ -140,41 +155,51 @@
         }
 
         .box {
-            border-radius:5px;
+            border-radius: 5px;
             width: 120px;
             height: 220px;
             margin: 0px 20px 0 20px;
             background-color: #ccc; /* Set your desired background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             margin: 15px; /* Add some spacing between the boxes */
         }
 
-        .input-group form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, auto); /* Added to create a 2x2 grid */
-            grid-gap: 10px; /* Adjust the gap as needed */
-            margin-top: 10px;
+            .box:hover {
+                cursor: pointer;
+            }
+
+        .deco {
+            text-decoration: none;
+            margin-right: 10px;
+            color: black;
         }
+
+        .moveright {
+            margin-top: 5px;
+            margin-left: 50px;
+        }
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
 </head>
 <body>
-
+    <div class="background-container"> </div>
     <div class="seperation">
         <div class="mains">
-            <div class="toplayers">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
-            </div>
             <header>
-                <h1 class="withdraw">Withdraw</h1>
+                <h1 class="withdraw">Hello <span>@TempData["LoggedInUser"]</span>!</h1>
+                <p>What would you like to do today?</p>
             </header>
 
             <div class="withdrawtext">
-                Please choose an amount to withdraw...
+                Get Cash
             </div>
 
-            @*<div class="input-group">
+            <div class="input-group">
                 <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Vr" method="post">
                     <input type="hidden" id="withdrawAmount" name="amount" value="" />
 
@@ -185,22 +210,8 @@
 
                     <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
                 </form>
-            </div>*@
-
-            <div class="input-group">
-                <form>
-                    <button type="button" data-amount="10">$10</button>
-                    <button type="button" data-amount="20">$20</button>
-                    <button type="button" data-amount="50">$50</button>
-                    <button type="button" data-amount="100">$100</button>
-                    <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
-                </form>
-                
             </div>
-
             <a type="button" asp-controller="Vr" asp-action="WithdrawOA">Other Amounts</a>
-
-            <p id="withdrawal-message" style="display: none;"></p>
 
             <div class="message" id="withdrawmessage">
                 @if (TempData["WSuccessMsg"] != null)
@@ -223,8 +234,8 @@
                 <p style="margin-right:130px;"><b>Other Services</b></p>
             </div>
             <div class="top-boxes">
-                <div class="box"></div>
-                <div class="box"></div>
+                <div class="box">Ask About Balance</div>
+                <div class="box">Transfer Funds</div>
             </div>
             <div>
                 <a href="#" style="margin-left:130px">More Services ></a>
@@ -232,6 +243,7 @@
         </div>
 
     </div>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -250,45 +262,32 @@
             }, 10);
         }
 
-        const buttons = document.querySelectorAll('.input-group button');
+        function withdraw(amount) {
+            var withdrawForm = document.getElementById("withdrawForm");
+            var messageDiv = document.getElementById("withdrawmessage");
 
-        function displayWithdrawalMessage(amount) {
-            const messageElement = document.getElementById('withdrawal-message');
-            messageElement.textContent = `Currently Withdrawing $${amount}...`;
-            messageElement.style.display = 'block';
-
-            let dots = 0;
-            const dotAnimation = setInterval(function () {
-                messageElement.textContent = `Currently Withdrawing $${amount}` + ".".repeat(dots);
+            // Display "Currently Withdrawing..." message with animated dots
+            var dots = 0;
+            var dotAnimation = setInterval(function () {
+                messageDiv.innerHTML = "We are preparing your cash" + ".".repeat(dots);
                 dots = (dots + 1) % 4; // 4 is the number of dots, adjust as needed
             }, 200); // Adjust the interval as needed
 
-            // Create an HTML element to display the amount
-            const amountDisplay = document.createElement('p');
-            amountDisplay.textContent = `Amount: $${amount}`;
-            messageElement.appendChild(amountDisplay);
-
+            // Delay for 3 seconds
             setTimeout(function () {
-                clearInterval(dotAnimation);
-                messageElement.textContent = `Successful Withdrawal of $${amount}`;
-                // You can perform additional actions here after successful withdrawal
+                clearInterval(dotAnimation); // Stop the dot animation
+                // Display "Successful Withdrawal" message
+                messageDiv.innerHTML = "Successful Withdrawal";
 
-                // For demonstration purposes, redirecting to a feedback page after 2 seconds
+                // Delay for another 3 seconds
                 setTimeout(function () {
-                    window.location.href = 'Feedback'; // Replace 'feedback.html' with the actual URL of your feedback page
-                }, 2000); // 2000 milliseconds = 2 seconds
-            }, 3000); // 3000 milliseconds = 3 seconds
+                    // Set the withdrawal amount
+                    document.getElementById('withdrawAmount').value = amount;
+                    // Submit the withdrawal form
+                    withdrawForm.submit();
+                }, 3000);
+            }, 5000);
         }
-
-
-        buttons.forEach(button => {
-            button.addEventListener('click', function () {
-                const amount = this.textContent.substring(1);
-                displayWithdrawalMessage(amount);
-            });
-        });
-
-
 
         // JavaScript to show the message div if there's a message
         window.onload = function () {
@@ -308,9 +307,10 @@
         {
             TempData["WErrorMsg"] = null;
         }
-                    });
+                            });
 
     </script>
 </body>
 </html>
+
 

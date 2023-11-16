@@ -26,9 +26,9 @@ namespace WebApplication1.Controllers
         {
             if (password == "654321")
             {
-                return RedirectToAction("Home", "Vr");
+                return RedirectToAction("Withdraw", "Vr");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
         public IActionResult Home()
@@ -69,12 +69,6 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                // Here, you might implement the logic to handle the withdrawal of the specified amount.
-                // For demonstration purposes, this is just a placeholder.
-
-                // Your withdrawal logic goes here...
-
-                // For demonstration, I'll simulate a delay using Task.Delay.
                 await Task.Delay(2000); // Simulating a 2-second delay.
 
                 // After the withdrawal process (simulated delay), you might set a success message.
@@ -92,10 +86,11 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index", "Home"); // Redirect to the Home/Index page after an error.
             }
         }
-        public IActionResult WithdrawAmountOA(decimal Amount)
-        {
-            return View();
-        }
+        //public IActionResult WithdrawAmountOA(decimal Amount)
+        //{
+        //    return RedirectToAction("Feedback","Vr");
+
+        //}
         public IActionResult Feedback()
         {
             return View();

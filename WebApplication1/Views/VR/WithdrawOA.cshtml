@@ -107,14 +107,14 @@
 
 		<div>
 			<div class="input-group">
-				<form id="depositForm" asp-controller="Home" asp-action="WithdrawAmountOA" method="post" onsubmit="return submitForm()">
-					<input asp-for="Amount" id="depositAmount" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required>
-					<button type="submit" onclick="simulateDeposit()">Submit</button>
+				<form id="depositForm" method="post" onsubmit="return submitForm()">
+					<input asp-for="Amount" id="withdrawAmount" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required>
+					<button type="submit" onclick="simulateWithdraw()">Submit</button>
 				</form>
 			</div>
 		</div>
 		<div id="dotMessage" style="display: none;"></div>
-		<div id="depositmessage" style="display: none;"></div>
+		<div id="withdrawmessage" style="display: none;"></div>
 	</div>
 
 	<script>
@@ -134,8 +134,23 @@
             }, 10);
         }
 
+        function submitForm() {
+            // You can add any form validation logic here
+            showDotMessage();
+
+            // Simulate a delay for 3 seconds before showing the success message
+            setTimeout(function () {
+                // Call the function to show the success message
+                showMessage("Successful Withdraw", 3000);
+                window.location.href = 'Feedback';
+            }, 3000);
+            // After form submission, redirect to the Feedback page
+             // Change '/feedback' to the actual URL of your Feedback page
+            return false; // Prevents the form from being submitted via normal HTTP POST
+        }
+
 		// Function to simulate the deposit process with dot animation and success message
-		function simulateDeposit() {
+		function simulateWithdraw() {
 			// Call the function to show the dot message with animated dots
 			showDotMessage();
 
@@ -148,7 +163,7 @@
 
 		// Function to display a message for a specified duration
 		function showMessage(message, duration) {
-			var messageDiv = document.getElementById("depositmessage");
+			var messageDiv = document.getElementById("withdrawmessage");
 			messageDiv.innerHTML = message;
 
 			// Show the message div
@@ -158,6 +173,7 @@
 			setTimeout(function () {
 				// Hide the message div after the delay
 				messageDiv.style.display = "none";
+                window.location.href = "Feedback";
 			}, duration);
 		}
 

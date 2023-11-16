@@ -89,7 +89,7 @@
         <br />
         <br />
         <div>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="mmbutton">Skip</a>
+            <a asp-area="" asp-controller="Home" asp-action="Welcome" class="mmbutton">Skip</a>
         </div>
     </div>
 
@@ -149,7 +149,7 @@
                 } else if (currentRating >= 4) {
                     showMessage("Thank you for the feedback!", 3000);
                     setTimeout(function () {
-                        window.location.href = 'Index';
+                        window.location.href = '/Home/Welcome';
                     }, 3000);
                 }
             });
@@ -164,8 +164,8 @@
             });
         });
         setTimeout(function () {
-            window.location.href = 'Index'; // Replace 'index.html' with the actual URL of your index page
-        }, 5000); // 7 seconds = 7000 milliseconds
+            window.location.href = '/Home/Welcome'; // Replace 'index.html' with the actual URL of your index page
+        }, 10000); // 7 seconds = 7000 milliseconds
     </script>
 </body>
 </html>
