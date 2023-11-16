@@ -46,19 +46,27 @@
 </head>
     <body>
         
-    <div class="easein">
-        <div class="mains">
-        <div class="welcomezz">
-            Welcome: @TempData["LoggedInUser"]
+        <div class="easein">
+            <div class="mains">
+                <div class="welcomezz">
+                    Welcome: @TempData["LoggedInUser"]
+                </div>
+                <div>
+                    Impaired
+                </div>
+                <div class="button-containerers">
+                    <a asp-area="" asp-controller="Impared" asp-action="Withdraw" class="wdbuttonss">Withdraw</a>
+                    @* <a asp-area="" asp-controller="Impared" asp-action="Deposit" class="wdbuttonss">Deposit</a> *@
+                </div>
+            </div>
         </div>
-        <div>
-            Impaired
-        </div>
-        <div class="button-containerers">
-            <a asp-area="" asp-controller="Impared" asp-action="Withdraw" class="wdbuttonss">Withdraw</a>
-            <a asp-area="" asp-controller="Impared" asp-action="Deposit" class="wdbuttonss">Deposit</a>
-        </div>
-        </div>
-        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var text = "Welcome to OCBC ATM, click the centre of the screen to start withdrawal process"
+                //console.log(text);
+                var utterance = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(utterance);
+            });
+        </script>
     </body>
 </html>

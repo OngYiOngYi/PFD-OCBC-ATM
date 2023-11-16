@@ -8,6 +8,9 @@
 <head>
     <title>Withdraw</title>
     <style>
+        body{
+            overflow:hidden;
+        }
         .withdraw-form {
             max-width: 400px;
             margin: 0 auto;
@@ -26,18 +29,23 @@
 
         .button-container {
             display: flex;
-            justify-content: space-between;
+            justify-content:center;
+
         }
 
         .btn {
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         .btn-start {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding:0px 0px 900px 900px;
+            width:100%;
             background-color: #4caf50;
             color: white;
         }
@@ -48,6 +56,11 @@
         }
 
         .btn-submit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding:0px 900px 900px 0px;
+            width:100%;
             background-color: #007bff;
             color: white;
         }
@@ -60,12 +73,15 @@
         }
         .mains{
             position:relative;
-            top:150px;
+            top:50px;
             display:flex;
             flex-direction:column;
             align-items:center;  
             justify-content:center;
             margin-top:5%;
+        }
+        .hiders{
+            display:none;
         }
 
     </style>
@@ -73,47 +89,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
 </head>
 <body>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Welcome">Home</a>
     <div class="easein">
-    <div class="mains">
-        <header>
-            <h1 class="withdraw">Withdraw</h1>
-        </header>
+        <div class="mains">
+            <header>
+                <h1 class="withdraw">Withdraw</h1>
+            </header>
 
-        <div class="withdrawtext">
-            Please choose an amount to withdraw...
-        </div>
-    
-
+            <div class="withdrawtext">
+                Please Select an option...
+            </div>
         
-        <div class="container">
+            <div class="container">
 
-            <form id="withdrawForm" asp-controller="Impared" asp-action="WithdrawAmount" method="post" onsubmit="return submitForm()" class="withdraw-form">
-                <div class="form-group">
-                    <textarea asp-for="Amount" id="result" type="number" name="Amount" placeholder="Enter amount" class="form-control" required></textarea>
-                </div>
-                <div class="button-container">
-                    <button id="start" class="btn btn-start">Start</button>
-                    <button id="stop" class="btn btn-stop">Stop</button>
-                    <button type="submit" onclick="simulateWithdraw()" class="btn btn-submit">Submit</button>
-                </div>
-            </form>
-        </div>
+                <form id="withdrawForm" asp-controller="Impared" asp-action="WithdrawAmount" method="post" onsubmit="return submitForm()" class="withdraw-form">
+                    <div class="form-group">
+                        <textarea asp-for="Amount" id="result" type="number" name="Amount" placeholder="Enter amount" class="form-control centerings" required></textarea>
+                    </div>
+                    <div class="button-container">
+                        <button id="start" class="btn btn-start"></button>
+                        <button id="stop" class="btn btn-stop hiders">Stop</button>
+                        <button type="submit" onclick="simulateWithdraw()" class="btn btn-submit"></button>
+                    </div>
+                </form>
+            </div>
 
-        <div class="message" id="withdrawmessage">
-            <!-- Your success and error message display here -->
-        </div>
-
-            <div class="hidden-elements" style="display: none;">
-                <!-- Hidden elements -->
-                <div class="hidden-div">
-                    Do you want to withdraw the amount?
-                </div>
+            <div class="message" id="withdrawmessage">
+                <!-- Your success and error message display here -->
             </div>
         </div>
     </div>
-    </div>
 
     <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            var text = "Welcome to withdrawal. To start the process, click the bottom left of the screen and say the amount you want to withdraw"
+            //console.log(text);
+            var utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+        });
         // Check if webkitSpeechRecognition is available
         if ('webkitSpeechRecognition' in window) {
             var startButton = document.getElementById('start');
@@ -143,7 +156,10 @@
                     }
                 }
                 resultElement.textContent = finalTranscript.trim();
-                checkIfNumber(finalTranscript);
+
+                if (event.results[event.results.length - 1].isFinal) {
+                    checkIfNumber(finalTranscript);
+                }
             });
 
             function checkIfNumber(input) {
@@ -151,31 +167,20 @@
                 const cleanedInput = input.replace(/[^0-9a-zA-Z.-]/g, '');
                 console.log(cleanedInput);
                 if (!isNaN(cleanedInput)) {
+                    var text = "To withdraw " + cleanedInput + " dollars, click the button on the bottom right of the screen to withdraw or the bottom left to restart the process"
+                    console.log(text);
+                    var utterance = new SpeechSynthesisUtterance(text);
+                    window.speechSynthesis.speak(utterance);
                     return true; // Returns true if the cleaned input is a number
                 } else {
                     console.log('Not a valid number'); // CHANGE HERE TO THE TEXT TO SPEECH FOR ISAAC TO DO
+                    var text = "That is not a valid number, please click the start button on the bottom left of the screen to restart the process";
+                    var utterance = new SpeechSynthesisUtterance(text);
+                    window.speechSynthesis.speak(utterance);
                     return false; // Returns false if the cleaned input is not a number
                 }
             }
 
-            // Function to confirm withdrawal
-            function confirmWithdraw() {
-                const input = resultElement.value.trim();
-                if (checkIfNumber(input)) {
-                    const withdrawalConfirmed = confirm('Do you want to withdraw ' + input + '?');
-                    if (withdrawalConfirmed) {
-                        // If confirmed, show hidden elements
-                        document.querySelector('.hidden-elements').style.display = 'block';
-                        return true; // Proceed with form submission
-                    } else {
-                        console.log('Withdrawal canceled by user');
-                        return false; // Prevent form submission
-                    }
-                } else {
-                    alert('Please enter a valid number.');
-                    return false; // Prevent form submission
-                }
-            }
 
             function handleWithdrawalConfirmation() {
                 const input = resultElement.value.trim();
@@ -215,7 +220,14 @@
             // Handle cases where webkitSpeechRecognition is not available
             console.log('Speech recognition not supported in this browser.');
         }
-
+        function simulateWithdraw() {
+            var text = "Withdrawing your cash now, please take your cash from the ATM";
+            var utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+            setTimeout(function () {
+                window.location.href = '/Home';
+            }, 6000); // 8000 milliseconds = 8 seconds
+        }
     </script>
 </body>
 </html>

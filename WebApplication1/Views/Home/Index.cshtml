@@ -122,3 +122,18 @@
         }, 50);
     }
 </script>
+
+@* <textarea id="text-to-read" rows="4" cols="50">Hello, this is a sample text to be read aloud.</textarea>
+<button onclick="readText()">Read Text</button>
+
+
+    function readText() {
+        // Get the text from the textarea
+        var text = document.getElementById('text-to-read').value;
+
+        // Create a new SpeechSynthesisUtterance instance
+        var utterance = new SpeechSynthesisUtterance(text);
+
+        // Speak the text
+        window.speechSynthesis.speak(utterance);
+    } *@
