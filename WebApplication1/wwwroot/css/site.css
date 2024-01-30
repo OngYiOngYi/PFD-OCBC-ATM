@@ -162,7 +162,6 @@ body {
 
 .toplayers {
     display: flex;
-    justify-content: flex-start; /* Align contents to the left */
     text-decoration:none;
 }
 

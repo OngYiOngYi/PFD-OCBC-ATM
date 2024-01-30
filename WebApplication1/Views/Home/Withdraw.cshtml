@@ -193,8 +193,8 @@
     <div class="background-container"> </div>
     <div class="toplayers moveright">
         <a class="nav-link text-dark deco" asp-area="" asp-controller="Home" asp-action="Welcome">Home</a>
-        <a class="nav-link text-dark deco" asp-area="" asp-controller="Malay" asp-action="Withdraw">Malay</a>
-        <a class="nav-link text-dark deco" asp-area="" asp-controller="Chinese" asp-action="Withdraw">Chinese</a>
+        <div id="google_translate_element"></div>
+
     </div>
     <div class="seperation">
         <div class="mains">       
@@ -317,6 +317,15 @@
         }
                     });
 
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                { pageLanguage: 'en' },
+                'google_translate_element'
+            );
+        }
     </script>
 </body>
 </html>

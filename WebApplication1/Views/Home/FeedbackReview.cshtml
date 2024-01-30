@@ -80,8 +80,8 @@
 <body>
     <div class="toplayers">
         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Malay" asp-action="FeedbackReview">Malay</a>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Chinese" asp-action="FeedbackReview">Chinese</a>
+        <div id="google_translate_element"></div>
+
     </div>
     <div class="mains">
         <div class="feedbackreview">
@@ -137,6 +137,15 @@
         setTimeout(function () {
             window.location.href = 'Welcome'; // Replace 'index.html' with the actual URL of your index page
         }, 10000); // 7 seconds = 7000 milliseconds
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                { pageLanguage: 'en' },
+                'google_translate_element'
+            );
+        }
     </script>
 </body>
 </html>
