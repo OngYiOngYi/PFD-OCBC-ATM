@@ -72,11 +72,13 @@
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-o52IQ2OqBE5s1OMWg5jz4q3p1HIK9pX8z9e/JQ6aDkFAqSYBpe0bMHtaHKtA4bFb" crossorigin="anonymous">
+    <script src="~/js/Translate.js" asp-append-version="true"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
     <div class="toplayers">
         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        <div id="google_translate_element"></div>
+        <div class="googlemovements" id="google_translate_element"></div>
 
     </div>
     <div class="mains">
@@ -171,15 +173,6 @@
         setTimeout(function () {
             window.location.href = 'Welcome'; // Replace 'index.html' with the actual URL of your index page
         }, 10000); // 7 seconds = 7000 milliseconds
-    </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script>
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement(
-                { pageLanguage: 'en' },
-                'google_translate_element'
-            );
-        }
     </script>
 </body>
 </html>

@@ -36,7 +36,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 100vh;
+            height: 80vh;
             width: 100%; /* Cover the full width of the website */
         }
 
@@ -183,18 +183,23 @@
             margin-left:50px;
         }
 
+        .googlemovements {
+            margin-bottom: -1.15%;
+        }
+
 
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
+    <script src="~/js/Translate.js" asp-append-version="true"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
     <div class="background-container"> </div>
     <div class="toplayers moveright">
         <a class="nav-link text-dark deco" asp-area="" asp-controller="Home" asp-action="Welcome">Home</a>
-        <div id="google_translate_element"></div>
-
+        <div class = "googlemovements" id="google_translate_element"></div>
     </div>
     <div class="seperation">
         <div class="mains">       
@@ -317,15 +322,6 @@
         }
                     });
 
-    </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script>
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement(
-                { pageLanguage: 'en' },
-                'google_translate_element'
-            );
-        }
     </script>
 </body>
 </html>
