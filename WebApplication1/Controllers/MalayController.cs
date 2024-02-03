@@ -129,16 +129,18 @@ namespace WebApplication1.Controllers
             return View();
 		}
 
-		public IActionResult WithdrawAmount(int amount)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult WithdrawAmount(int amount)
         {
 
-			List<User> userList = userContext.GetUsers();
+            List<User> userList = userContext.GetUsers();
 
-			foreach (var user in userList)
-			{
-				if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
-				{
-					if (user.Amount - amount < 0)
+            foreach (var user in userList)
+            {
+                if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
+                {
+                    if (user.Amount - amount < 0)
                     {
                         TempData["ErrorMsg"] = "There is not enough amount to withdraw";
                         return View();
@@ -146,17 +148,25 @@ namespace WebApplication1.Controllers
 
                     else if (user.Amount - amount > 0)
                     {
+                        Transaction transaction = new Transaction();
+                        transaction.transactionamt = amount;
+                        transaction.transactiondate = DateTime.Now;
+                        transaction.categoryID = 4;
+                        transaction.transactioncat = "Withdraw";
+                        transaction.account_id = user.AccountID;
+                        transaction.TransactionID = userContext.AddHistory(transaction);
+
                         decimal amt = user.Amount;
                         decimal newamt = amt - amount;
                         userContext.Withdraw(user, newamt);
                         TempData["SuccessMsg"] = "Successful withdraw";
-						return RedirectToAction("Feedback");
-					}
+                        return RedirectToAction("Feedback");
+                    }
 
-				}
-			}
+                }
+            }
             return View();
-		}
+        }
         public async Task<IActionResult> WithdrawAmountOA(decimal Amount)
         {
             List<User> userList = userContext.GetUsers();
@@ -206,6 +216,23 @@ namespace WebApplication1.Controllers
         public IActionResult Welcome()
         {
             return View();
+        }
+
+        public IActionResult Profile(int selectedmonth, int selectedyear)
+        {
+            int? userid = HttpContext.Session.GetInt32("UserID");
+            List<Transaction> transactions = userContext.GetTransactions(userid, selectedmonth, selectedyear);
+
+            return View(transactions);
+            //return View();
+        }
+
+        public IActionResult ProfileHistory(int selectedmonth, int selectedyear)
+        {
+            int? userid = HttpContext.Session.GetInt32("UserID");
+            List<Transaction> transactions = userContext.GetTransactions(userid, selectedmonth, selectedyear);
+
+            return View(transactions);
         }
     }
 }
