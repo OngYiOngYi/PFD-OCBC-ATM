@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
             var message = MessageResource.Create(
                 to: to,
                 from: from,
-                body: "Bro Ur teammates are hella useless dawg i get it i feel u...");
+                body: "NEW SUBMIT");
 
             return RedirectToAction("Withdraw" ,"Home");
         }
