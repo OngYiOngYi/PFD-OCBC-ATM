@@ -33,16 +33,17 @@ namespace WebApplication1.Controllers
             TwilioClient.Init(accountSid, authToken);
 
             var to = new PhoneNumber(_configuration["Twilio:MyPhoneNumber"]);
-            var from = new PhoneNumber("+16317106309");
-            Console.WriteLine(to);
-            Console.WriteLine(from);
+            var from = new PhoneNumber("");
+
+            var currentDate = DateTime.Now.ToString("yyyy-MM-dd");
+            var messageBody = $"You have withdrawn money from OCBC on {currentDate}. If this is not you, please contact OCBC.";
 
             var message = MessageResource.Create(
                 to: to,
                 from: from,
-                body: "NEW SUBMIT");
+                body: messageBody);
 
-            return RedirectToAction("Withdraw" ,"Home");
+            return RedirectToAction("Feedback" ,"Home");
         }
     }
 }

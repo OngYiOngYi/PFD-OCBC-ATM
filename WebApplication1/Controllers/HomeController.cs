@@ -150,7 +150,7 @@ namespace WebApplication1.Controllers
                         decimal newamt = amt - amount;
                         userContext.Withdraw(user, newamt);
                         TempData["SuccessMsg"] = "Successful withdraw";
-						return RedirectToAction("Feedback");
+						return RedirectToAction("SendSms", "Sms");
 					}
 
 				}
@@ -180,7 +180,7 @@ namespace WebApplication1.Controllers
                         TempData["DotMessage"] = "";
                         TempData["SuccessMsg"] = "Successful Withdraw";
                         await Task.Delay(6000);
-                        return RedirectToAction("Feedback");
+                        return RedirectToAction("SendSms", "Sms");
                     }
                 }
             }
