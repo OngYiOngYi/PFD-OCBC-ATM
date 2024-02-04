@@ -1,0 +1,5 @@
+﻿@using WebApplication1.Components
+@{
+    ViewData["Title"] = "Voice Assistance";
+}
+@(await Html.RenderComponentAsync<VoiceAssistant>(RenderMode.Server))

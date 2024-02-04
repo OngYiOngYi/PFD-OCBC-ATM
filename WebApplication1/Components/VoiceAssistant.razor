@@ -1,11 +1,11 @@
 ﻿@page "/voice-assistant"
 @using Microsoft.CognitiveServices.Speech
 @using Microsoft.CognitiveServices.Speech.Audio
+@using System.Net.Http
+@using System.Net.Http.Headers
+@using System.Text.Json
+@using System.Text
 @using System.Text.Json.Serialization;
-@using System.Diagnostics;
-@using System.Text.Json;
-@using System.Text;
-@using Microsoft.AspNetCore.Components;
 
 <h1>Hello User,</h1>
 <p>Welcome to Chat GPT voice assistance.</p>
@@ -19,8 +19,8 @@
 </p>
 
 @code {
-    private static string? InputValue { get; set; }
-    private static string? OutputValue { get; set; }
+    private string InputValue { get; set; } = string.Empty;
+    private string OutputValue { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -30,99 +30,96 @@
         using var audioConfig = AudioConfig.FromDefaultMicrophoneInput();
         using var speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
         var speechRecognitionResult = await speechRecognizer.RecognizeOnceAsync();
-        await OutputSpeechRecognitionResult(speechRecognitionResult);
+        await ProcessSpeechRecognitionResult(speechRecognitionResult);
     }
 
-    private static async Task OutputSpeechRecognitionResult(SpeechRecognitionResult speechRecognitionResult)
+    private async Task ProcessSpeechRecognitionResult(SpeechRecognitionResult speechRecognitionResult)
     {
-        switch (speechRecognitionResult.Reason)
+        if (speechRecognitionResult.Reason == ResultReason.RecognizedSpeech)
         {
-            case ResultReason.RecognizedSpeech:
-                InputValue = speechRecognitionResult.Text;
-                await UseChatGPT(InputValue);
-                break;
-            case ResultReason.NoMatch:
-                OutputValue = "Speech could not be recognized.";
-                break;
-            case ResultReason.Canceled:
-                var cancellation = CancellationDetails.FromResult(speechRecognitionResult);
-                OutputValue = $"CANCELED: Reason={cancellation.Reason}";
-                if (cancellation.Reason == CancellationReason.Error)
-                {
-                    OutputValue += $" ErrorCode={cancellation.ErrorCode}";
-                    OutputValue += $" ErrorDetails={cancellation.ErrorDetails}";
-                    OutputValue += " Double check the speech resource key and region.";
-                }
-                break;
+            InputValue = speechRecognitionResult.Text;
+            await UseChatGPT(InputValue);
+        }
+        else
+        {
+            OutputValue = "Speech could not be recognized or another error occurred.";
         }
     }
 
-    private static async Task UseChatGPT(string query)
+    private async Task UseChatGPT(string query)
     {
-        var completionRequest = new CompletionRequest
-            {
-                Model = "text-davinci-003", // Ensure this model is currently available
-                Prompt = query,
-                MaxTokens = 120
-            };
-
-        using (var httpClient = new HttpClient())
+        var httpClient = new HttpClient();
+        var requestBody = new
         {
-            try
+            model = "gpt-3.5-turbo",
+            messages = new[]
             {
-                var httpReq = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/completions");
-                httpReq.Headers.Add("Authorization", "Bearer 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");
-                var requestString = JsonSerializer.Serialize(completionRequest);
-                httpReq.Content = new StringContent(requestString, Encoding.UTF8, "application/json");
+                new { role = "user", content = query }
+            }
+        };
 
-                var httpResponse = await httpClient.SendAsync(httpReq);
-                if (httpResponse.IsSuccessStatusCode)
+
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions");
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "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");
+        request.Content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+        try
+        {
+            var response = await httpClient.SendAsync(request);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Response Body: {responseContent}"); 
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"API Call Failed: {response.StatusCode}");
+                Console.WriteLine($"Error Response: {responseContent}");
+                OutputValue = "Error processing your request. Please try again.";
+            }
+            else
+            {
+                var completionResponse = JsonSerializer.Deserialize<CompletionResponse>(responseContent, new JsonSerializerOptions
                 {
-                    var responseString = await httpResponse.Content.ReadAsStringAsync();
-                    var completionResponse = JsonSerializer.Deserialize<CompletionResponse>(responseString);
-                    OutputValue = completionResponse?.Choices?.FirstOrDefault()?.Text ?? "No output from OpenAI";
+                    PropertyNameCaseInsensitive = true // This option can help mitigate case sensitivity issues
+                });
+
+                if (completionResponse?.Choices != null && completionResponse.Choices.Any())
+                {
+                    OutputValue = completionResponse.Choices[0].Message?.Content ?? "No output from OpenAI.";
                 }
                 else
                 {
-                    OutputValue = $"HTTP Request failed. Reason: {httpResponse.ReasonPhrase}";
+                    OutputValue = "Received an unexpected response format from OpenAI.";
                 }
             }
-            catch (Exception ex)
-            {
-                OutputValue = $"Error: {ex.Message}";
-            }
-        }
 
-        // Optionally, speak out the result
-        var config = SpeechConfig.FromSubscription("YourAzureSpeechServiceSubscriptionKey", "YourServiceRegion");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception occurred: {ex.Message}");
+            OutputValue = "An error occurred while processing your request.";
+        }
+        // Speak out the result
+        var config = SpeechConfig.FromSubscription("158c8fb507054b52b3fcdf722b8eb650", "southeastasia");
         config.SpeechSynthesisLanguage = "en-US";
         config.SpeechSynthesisVoiceName = "en-US-JennyNeural";
         using var synthesizer = new SpeechSynthesizer(config);
-        await synthesizer.SpeakTextAsync(OutputValue ?? "No output to speak");
-    }
-
-    public class CompletionRequest
-    {
-        [JsonPropertyName("model")]
-        public string? Model { get; set; }
-        [JsonPropertyName("prompt")]
-        public string? Prompt { get; set; }
-        [JsonPropertyName("max_tokens")]
-        public int? MaxTokens { get; set; }
+        await synthesizer.SpeakTextAsync(OutputValue);
     }
 
     public class CompletionResponse
     {
-        [JsonPropertyName("choices")]
-        public List<ChatGPTChoice>? Choices { get; set; }
+        public List<Choice>? Choices { get; set; }
     }
 
-    [DebuggerDisplay("Text = {Text}")]
-    public class ChatGPTChoice
+    public class Choice
     {
-        [JsonPropertyName("text")]
-        public string? Text { get; set; }
+        [JsonPropertyName("message")]
+        public Message? Message { get; set; }
     }
-//"158c8fb507054b52b3fcdf722b8eb650", "southeastasia"
-//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
+
+    public class Message
+    {
+        [JsonPropertyName("role")]
+        public string? Role { get; set; }
+        [JsonPropertyName("content")]
+        public string? Content { get; set; }
+    }
 }

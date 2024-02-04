@@ -11,9 +11,7 @@ namespace WebApplication1.Controllers
 {
     public class VoiceAssistanceController : Controller
     {
-       
-       
-        public IActionResult Index()
+        public IActionResult Index1()
         {
             return View();
         }
