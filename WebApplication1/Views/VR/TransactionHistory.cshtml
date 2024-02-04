@@ -1,0 +1,78 @@
+﻿@model List<WebApplication1.Models.Transaction>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black; 
+            color: #B71C1C; /* Dark red */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #B71C1C; /* Dark red */
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #D32F2F; /* Dark red */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #FFCDD2; /* Light red */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #FFEBEE; /* Lighter red */
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px;"><strong>Transaction History</strong></h2>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Category ID</th>
+                    <th>Category</th>
+                    <th>Account ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transaction in Model)
+                {
+                    <tr>
+                        <td>@transaction.TransactionID</td>
+                        <td>@transaction.transactionamt</td>
+                        <td>@transaction.transactiondate.ToString("yyyy-MM-dd")</td>
+                        <td>@transaction.categoryID</td>
+                        <td>@transaction.transactioncat</td>
+                        <td>@transaction.account_id</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No transactions available.</p>
+    }
+</body>
+</html>

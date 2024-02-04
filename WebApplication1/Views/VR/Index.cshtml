@@ -12,7 +12,7 @@
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        background-color: #e5e5f7;
+        background-color: black;
     }
 
     .container-fluidersers {
@@ -67,26 +67,53 @@
 </a>*@
 
 <div class="easein">
-<h1 style="text-align:center;" class="toppies"><b>Welcome! Please choose your login method</b></h1>
+<h1 style="text-align:center; color:white;" class="toppies"><b>Hello, what would you like to do today?</b></h1>
 <div class="container-fluidersers">
     <div class="rownaisu">
         <div class="col-lg-4">
-            <a asp-area="" asp-controller="Home" asp-action="PinLogin" class="boxiesers">
-                <i class="fa-solid fa-credit-card fa-2x"></i>
+            <a asp-area="" asp-controller="Vr" asp-action="Deposit" class="boxiesers">
+                    <i class="fa-solid fas fa-arrow-up fa-2xl"></i>
             </a>
+
+                <br />
+                <br />
+                <br />
+                <span style="color:white;font-size:20px;">Deposit</span>
         </div>
 
         <div class="col-lg-4">
-            <a asp-area="" asp-controller="Impared" asp-action="ThumbprintLogin" class="boxiesers">
-                <i class="fa-solid fa-fingerprint fa-2x"></i>
+                <a asp-area="" asp-controller="Vr" asp-action="Withdraw" class="boxiesers">
+                    <i class="fa-solid fas fa-arrow-down fa-2xl"></i>
             </a>
+
+                <br />
+                <br />
+                <br />
+                <span style="color:white;font-size:20px;">Withdraw</span>
         </div>
 
         <div class="col-lg-4">
-            <a asp-area="" asp-controller="Home" asp-action="VR" class="boxiesers">
-                <i class="fa-solid fa-vr-cardboard fa-2xl"></i>
+                <a asp-area="" asp-controller="Vr" asp-action="TransactionHistory" class="boxiesers">
+                    <i class="fa-solid fas fa-book fa-2xl"></i>
             </a>
+
+                <br />
+                <br />
+                <br />
+                <span style="color:white;font-size:20px;">View Transaction History</span>
         </div>
+
+        <div class="col-lg-4">
+                <a asp-area="" asp-controller="Vr" asp-action="Details" class="boxiesers">
+                    <i class="	fas fa-money-check fa-2xl fa-solid"></i>
+                    
+            </a>
+                <br />
+                <br />
+                <br />
+                <span style="color:white;font-size:20px;">View Bank Account Details</span>
+        </div>
+
     </div>
     </div>
 </div>

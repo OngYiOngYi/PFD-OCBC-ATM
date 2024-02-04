@@ -14,7 +14,7 @@ namespace WebApplication1.Controllers
 
 		private List<User> users = new List<User>
 		{
-			new User { AccountID = 100, Name="Itsuki Nakano", AccountNumber="12345678", Password="123456",Amount=10000 },
+			new User { AccountID = 1, Name="Nino Nakano", AccountNumber="12345678", Password="123456",Amount=10000 },
 		};
 
 		public HomeController()

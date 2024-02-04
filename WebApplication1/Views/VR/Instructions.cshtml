@@ -1,0 +1,107 @@
+﻿@model WebApplication1.Models.User
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            height: 100vh;
+        }
+
+        /* .container {
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px white;
+            width: 40%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 250px;
+        } */
+
+        label {
+            margin-bottom: 6px;
+        }
+
+        .spacerers {
+            margin-top: 5%;
+        }
+
+        .upsies {
+            margin-top: -10px;
+        }
+    </style>
+</head>
+
+<body onclick="redirectToAnotherPage()">
+    <div class="toplayers">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+            <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+        </a>
+    </div>
+
+    <div class="login-container" style="color:white;">
+        <div class="container mt-5" style="text-align:center;">
+            <h2 class="upsies" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:60px;color:Blue;">User Guide<br /></h2>
+
+            @* Display error message if any *@
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <p class="text-danger">@ViewBag.ErrorMessage</p>
+            }
+
+            <span style="font-size:45px;">Welcome to your OCBC VR Banking Experience!<br /></span>
+            <span style="font-size:45px; ">We are glad to share our newest VR Banking and Virtual Assistant enhancements with you!<br /></span>
+            <span style="font-size:45px; ">To get started, say</span> <span style="font-size:50px;color:red;"><strong> "Hello Looki"</strong></span><br />
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fadeIn(document.querySelector(".container"));
+        });
+
+        function fadeIn(element) {
+            var opacity = 0;
+            var interval = setInterval(function () {
+                if (opacity < 1) {
+                    opacity += 0.05;
+                    element.style.opacity = opacity;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 10);
+        }
+
+        function redirectToAnotherPage() {
+            // Change the URL to the desired destination
+            window.location.href = '/VR/Index';
+        }
+    </script>
+</body>
+
+</html>
