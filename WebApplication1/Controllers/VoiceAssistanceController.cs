@@ -9,12 +9,15 @@ using OpenAI_API.Completions;
 
 namespace WebApplication1.Controllers
 {
-    [ApiController]
     public class VoiceAssistanceController : Controller
     {
+       
+       
         public IActionResult Index()
         {
             return View();
         }
+
     }
+
 }

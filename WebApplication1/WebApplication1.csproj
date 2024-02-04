@@ -15,14 +15,13 @@
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="LangChain" Version="0.12.2" />
-    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.34.1" />
-    <PackageReference Include="OpenAI" Version="1.10.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-    <PackageReference Include="Twilio" Version="6.16.1" />
-    <PackageReference Include="Twilio.AspNet.Mvc" Version="8.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.34.1" />
+		<PackageReference Include="OpenAI" Version="1.10.0" />
+		<PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
+		<PackageReference Include="Twilio" Version="6.16.1" />
+		<PackageReference Include="Twilio.AspNet.Mvc" Version="8.0.2" />
+	</ItemGroup>
 
 </Project>

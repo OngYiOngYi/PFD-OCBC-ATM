@@ -6,18 +6,18 @@ using OpenAI_API.Completions;
 namespace WebApplication1.Controllers
 {
     //[Route("api/[controller]")]
-    [ApiController]
+  
     public class Voice : ControllerBase
     {
         [HttpGet]
         [Route("UseChatGPT")]
-        public async Task<IActionResult> UseChatGPT(string query)
+        public async Task<IActionResult>UseChatGPT(string query)
         {
             string OutputResult = "";
             var Openai = new OpenAIAPI("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");
             CompletionRequest completionRequest = new CompletionRequest();
             completionRequest.Prompt = query;
-            completionRequest.Model = OpenAI_API.Models.Model.DavinciText;
+            completionRequest.Model = OpenAI_API.Models.Model.Davinci;
 
             var completions = Openai.Completions.CreateCompletionAsync(completionRequest);
 
