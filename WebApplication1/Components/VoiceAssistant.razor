@@ -7,16 +7,46 @@
 @using System.Text
 @using System.Text.Json.Serialization;
 
-<h1>Hello User,</h1>
-<p>Welcome to Chat GPT voice assistance.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: transparent;
+        }
 
-<p>
-    <input type="text" @bind="InputValue" />
-</p>
+        h1, p {
+            text-align: center;
+        }
 
-<p>
-    <input type="text" @bind="OutputValue" />
-</p>
+        input {
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Hello User,</h1>
+        <p>Welcome to Chat GPT voice assistance.</p>
+
+        <p>
+            <input type="text" @bind="InputValue" />
+        </p>
+
+        <p>
+            <input type="text" @bind="OutputValue" />
+        </p>
+    </div>
+</body>
+</html>
 
 @code {
     private string InputValue { get; set; } = string.Empty;
