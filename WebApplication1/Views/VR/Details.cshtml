@@ -5,11 +5,16 @@
 <head>
     <title>Account Details</title>
     <style>
+
+        h1 {
+            font-size: 50px;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: black; /* Light gray background */
             color: #343a40; /* Dark gray text */
             margin: 20px;
+            color: #B71C1C; /* Dark red */
         }
 
         .profile-card {
@@ -52,16 +57,12 @@
     </style>
 </head>
 <body>
-    <br />
-    <br />
-    <br />
-    <div class="profile-card">
 
-
+    <h1>Account Details</h1>
         <!-- Placeholder image -->
-        <img src="~/images/girl.jpg" alt="Profile Image" class="profile-image">
+        <img src="~/images/profile.png" alt="Profile Image" class="profile-card">
 
-        <div>
+        @* <div>
             <h2>Account Details</h2>
 
             @if (Model != null && Model.Count > 0)
@@ -88,7 +89,7 @@
             {
                 <p>No account details available.</p>
             }
-        </div>
+        </div> *@
     </div>
 </body>
 </html>

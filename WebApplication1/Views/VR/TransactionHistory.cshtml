@@ -5,6 +5,10 @@
 <head>
     <title>Transaction History</title>
     <style>
+
+        h1{
+            font-size:50px;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: black; 
@@ -35,10 +39,24 @@
         tr:nth-child(odd) {
             background-color: #FFEBEE; /* Lighter red */
         }
+
+        .profile-card {
+            border: 1px solid #B71C1C; /* Dark red */
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center; /* Align items vertically in the center */
+        }
+
     </style>
 </head>
 <body>
-    <br />
+    <h1>Transaction History</h1>
+    <img src="~/images/transaction.png" alt="Profile Image" class="profile-card">
+    @* <br />
     <br />
     <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px;"><strong>Transaction History</strong></h2>
 
@@ -73,6 +91,6 @@
     else
     {
         <p>No transactions available.</p>
-    }
+    } *@
 </body>
 </html>
