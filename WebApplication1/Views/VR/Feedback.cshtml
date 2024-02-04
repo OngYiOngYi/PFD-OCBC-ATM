@@ -13,7 +13,7 @@
             font-family: 'Comfortaa', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: black;
         }
 
 
@@ -75,7 +75,7 @@
 </head>
 <body>
     <div class="mains">
-        <span>Please give us a review for our bank services!</span>
+        <span style="color:white;">Please give us a review for our bank services!</span>
         <br />
         <div class="rating">
             <input type="hidden" id="rating-value" name="rating" value="0" />
@@ -89,7 +89,7 @@
         <br />
         <br />
         <div>
-            <a asp-area="" asp-controller="Home" asp-action="Welcome" class="mmbutton">Skip</a>
+            <a asp-area="" asp-controller="Vr" asp-action="Welcome" class="mmbutton">Skip</a>
         </div>
     </div>
 
@@ -149,7 +149,7 @@
                 } else if (currentRating >= 4) {
                     showMessage("Thank you for the feedback!", 3000);
                     setTimeout(function () {
-                        window.location.href = '/Home/Welcome';
+                        window.location.href = '/Vr/Welcome';
                     }, 3000);
                 }
             });
@@ -164,7 +164,7 @@
             });
         });
         setTimeout(function () {
-            window.location.href = '/Home/Welcome'; // Replace 'index.html' with the actual URL of your index page
+            window.location.href = '/Vr/Welcome'; // Replace 'index.html' with the actual URL of your index page
         }, 10000); // 7 seconds = 7000 milliseconds
     </script>
 </body>
