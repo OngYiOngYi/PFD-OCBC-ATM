@@ -33,7 +33,7 @@ namespace WebApplication1.Controllers
             TwilioClient.Init(accountSid, authToken);
 
             var to = new PhoneNumber(_configuration["Twilio:MyPhoneNumber"]);
-            var from = new PhoneNumber("");
+            var from = new PhoneNumber("+");
 
             var currentDate = DateTime.Now.ToString("yyyy-MM-dd");
             var messageBody = $"You have withdrawn money from OCBC on {currentDate}. If this is not you, please contact OCBC.";
