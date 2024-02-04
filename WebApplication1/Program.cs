@@ -10,6 +10,7 @@ builder.Services.AddSession(options =>
 });
 
 // Add services to the container.
+builder.Services.AddServerSideBlazor();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -33,5 +34,8 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Welcome}/{id?}");
+
+app.MapBlazorHub();
+
 
 app.Run();
