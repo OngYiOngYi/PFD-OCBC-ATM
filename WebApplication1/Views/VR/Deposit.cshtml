@@ -100,7 +100,7 @@
 </head>
 <body>
     <div class="toplayers">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Vr" asp-action="Index"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
     </div>
     <div class="mains">
         <h1 class="Deposit"><strong>Deposit</strong></h1>
@@ -110,7 +110,7 @@
 
         <div>
             <div class="input-group">
-                <form id="depositForm" asp-controller="Home" asp-action="DepositAmount" method="post" onsubmit="return submitForm()">
+                <form id="depositForm" asp-controller="Vr" asp-action="DepositAmount" method="post" onsubmit="return submitForm()">
                     <input asp-for="Amount" id="depositAmount" type="number" name="Amount" placeholder="Enter amount" class="form-control-plaintext" required>
                     <button type="submit" onclick="simulateDeposit()">Submit</button>
                 </form>

@@ -28,9 +28,7 @@ namespace WebApplication1.Controllers
             {
                 if (user.Password == password)
                 {
-                    TempData["LoggedInUSer"] = user.Name;
-                    HttpContext.Session.SetInt32("UserID", user.AccountID);
-                    return RedirectToAction("Withdraw", "Vr");
+                    return RedirectToAction("Instructions", "Vr");
                 }
             }
 
@@ -58,118 +56,12 @@ namespace WebApplication1.Controllers
         }
 
 
-        public IActionResult Withdraw()
-        {
-            return View();
-        }
-
-        public IActionResult WithdrawOA()
-        {
-            return View();
-        }
-
-        public IActionResult Deposit()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DepositAmount(decimal Amount)
-        {
-            List<User> userList = userContext.GetUsers();
-
-            foreach (var user in userList)
-            {
-                if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
-                {
-                    if (Amount <= 0)
-                    {
-                        TempData["ErrorMsg"] = "You cannot deposit a non-positive amount";
-                    }
-                    else
-                    {
-
-
-                        decimal newAmount = user.Amount + Amount;
-                        user.Amount = newAmount;
-                        userContext.Deposit(user);
-
-                        TempData["DotMessage"] = "";
-                        TempData["SuccessMsg"] = "Successful Deposit";
-                        await Task.Delay(6000);
-                        return RedirectToAction("Feedback");
-                    }
-                }
-            }
-
-            TempData["ErrorMsg"] = "User not found";
-            return View();
-        }
-
-        public IActionResult WithdrawAmount(int amount)
-        {
-
-            List<User> userList = userContext.GetUsers();
-
-            foreach (var user in userList)
-            {
-                if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
-                {
-                    if (user.Amount - amount < 0)
-                    {
-                        TempData["ErrorMsg"] = "There is not enough amount to withdraw";
-                        return View();
-                    }
-
-                    else if (user.Amount - amount > 0)
-                    {
-                        decimal amt = user.Amount;
-                        decimal newamt = amt - amount;
-                        userContext.Withdraw(user, newamt);
-                        TempData["SuccessMsg"] = "Successful withdraw";
-                        return RedirectToAction("SendSms", "Sms");
-                    }
-
-                }
-            }
-            return View();
-        }
-        public async Task<IActionResult> WithdrawAmountOA(decimal Amount)
-        {
-            List<User> userList = userContext.GetUsers();
-
-            foreach (var user in userList)
-            {
-                if (user.AccountID == HttpContext.Session.GetInt32("UserID"))
-                {
-                    if (Amount <= 0)
-                    {
-                        TempData["ErrorMsg"] = "You cannot Withdraw a non-positive amount";
-                    }
-                    else
-                    {
-
-
-                        decimal newAmount = user.Amount - Amount;
-                        user.Amount = newAmount;
-                        userContext.Withdraw(user, newAmount);
-
-                        TempData["DotMessage"] = "";
-                        TempData["SuccessMsg"] = "Successful Withdraw";
-                        await Task.Delay(6000);
-                        return RedirectToAction("SendSms", "Sms");
-                    }
-                }
-            }
-
-            TempData["ErrorMsg"] = "User not found";
-            return View();
-        }
-
+   
         public IActionResult Feedback()
         {
             return View();
         }
+
 
         public IActionResult FeedbackReview()
         {
@@ -223,6 +115,28 @@ namespace WebApplication1.Controllers
             }
 
             return accountDetails;
+        }
+
+        public IActionResult Withdraw()
+        {
+            return View();
+        }
+
+        public IActionResult Deposit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DepositAmount(decimal Amount)
+        {
+            return RedirectToAction("Feedback", "Vr");
+        }
+
+        public IActionResult WithdrawAmount(string amount)
+        {
+            return RedirectToAction("Feedback", "Vr");
+            //return View();
         }
 
         public IActionResult TransactionHistory()

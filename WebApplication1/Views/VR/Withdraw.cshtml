@@ -212,7 +212,7 @@
             </div>
 
             <div class="input-group">
-                <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Home" method="post">
+                <form asp-action="WithdrawAmount" id="withdrawForm" asp-controller="Vr" method="post">
                     <input type="hidden" id="withdrawAmount" name="amount" value="" />
 
                     <button type="button" onclick="withdraw(10)">$10</button>
@@ -223,7 +223,7 @@
                     <input type="submit" style="display: none;" /> <!-- Hidden submit button to trigger the form submission -->
                 </form>
             </div>
-            <a type="button" asp-controller="Home" asp-action="WithdrawOA">Other Amounts</a>
+            <a type="button" asp-controller="Vr" asp-action="WithdrawOA">Other Amounts</a>
 
             <div class="message" id="withdrawmessage">
                 @if (TempData["WSuccessMsg"] != null)
