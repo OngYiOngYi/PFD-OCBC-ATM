@@ -1,0 +1,48 @@
+﻿@{
+	ViewData["Title"] = "Welcome";
+}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Handlee&family=Lobster&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Paytone+One&family=Public+Sans:wght@200&family=Roboto+Condensed:wght@500&display=swap" rel="stylesheet">
+<style>
+    body {
+        /*background-image: url('../images/gif.gif');
+        background-size: cover; /* Cover the entire viewport */
+        /*background-position: center;*/
+        background-color:black;
+        font-family: 'Comfortaa', sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align:center;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        opacity: 0; /* Set initial opacity to 0 */
+        animation: fadeIn 1s ease-in-out forwards; /* Use CSS animation to fade in */
+        color:white;
+    }
+  
+    .main{
+        margin-top:18%;
+        cursor:pointer;
+    }
+</style>
+
+<body onclick="redirectToAnotherPage()">
+    <div class="main">
+        <h1 style="font-family:Paytone One; font-size:70px;">The OCBC VR Banking Experience</> </h1><h2><br /> Click Anywhere to Start</h2><br />
+        <img src="~/images/ocbc logo with words.png" style="max-width: 500px; height: auto;" alt="Logo">
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('.main').animate({ opacity: 1 }, 1000); // Adjust the duration as needed
+    });
+
+    function redirectToAnotherPage() {
+        // Change the URL to the desired destination
+        window.location.href = '/VR/PinLogin';
+    }
+</script>
+

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<WebApplication1.Models.Transaction>
+
+@{
+	ViewData["Title"] = "Profile";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+
+    </style>
+    <script src="~/js/Translate.js" asp-append-version="true"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <div class="toplayers">
+        <a class="nav-link text-dark deco" asp-area="" asp-controller="Home" asp-action="Withdraw">Back</a>
+        <div class="googlemovements" id="google_translate_element"></div>
+    </div>
+
+    <h1>Transaction History</h1>
+
+    <form asp-action="Profile" method="post">
+       
+        <label for="selectedYear">Select Year:</label>
+        <select id="selectedYear" name="selectedYear">
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+        </select>
+
+        <label for="selectedMonth">Select Month:</label>
+        <select id="selectedMonth" name="selectedMonth">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+        <input type="submit" value="Filter">
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Category ID</th>
+                <th>Category</th>
+                <th>Account ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model)
+            {
+                <tr>
+                    <td>@transaction.TransactionID</td>
+                    <td>@transaction.transactionamt</td>
+                    <td>@transaction.transactiondate</td>
+                    <td>@transaction.categoryID</td>
+                    <td>@transaction.transactioncat</td>
+                    <td>@transaction.account_id</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+
+</html>

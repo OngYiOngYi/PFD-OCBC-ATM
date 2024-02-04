@@ -199,6 +199,7 @@
     <div class="background-container"> </div>
     <div class="toplayers moveright">
         <a class="nav-link text-dark deco" asp-area="" asp-controller="Home" asp-action="Welcome">Home</a>
+        <a class="nav-link text-dark deco" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
         <div class = "googlemovements" id="google_translate_element"></div>
     </div>
     <div class="seperation">
@@ -298,6 +299,16 @@
                     document.getElementById('withdrawAmount').value = amount;
                     // Submit the withdrawal form
                     withdrawForm.submit();
+
+
+
+                    // NEED TO REMOVE THIS PART FOR DEMO - ISAAC (PLSSS DONT TOUCH THIS)
+                    //window.location.href = '/Sms/SendSms';
+
+
+
+
+
                 }, 3000);
             }, 5000);
         }
